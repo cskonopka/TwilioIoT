@@ -1,4 +1,4 @@
-## 03-HappyBirthdayIoT
+## 03 - Saying Happy Birthday to my Grandmother with #TwilioIoT
 
 When it came to my Grandmother's 90th birthday I was stumped about what to get her as a gift. She has been a big influence in my life and I wanted to do something that showed that. I knew I wanted to integrate Twilio in some way because when she was younger she was a switchboard operator for Bell Telephone. Then it hit me like a ton of phones. I will create a hardware device with a Programmable Wireless SIM and a button. When she presses the button a voice call will be routed to her phone and an operator will tell her how much I love her and wish her a happy birthday. 
 
@@ -77,7 +77,7 @@ Unbox the [Wio LTE](https://www.seeedstudio.com/Wio-LTE-US-Version-4G%2C-Cat.1%2
 
 Insert the [Twilio SIM](https://www.seeedstudio.com/Twilio-Wireless-SIM-Card-p-3065.html) you registered into the Wio’s SIM slot on the back of the board. 
 
-IMAGE
+![wiosim](https://image.ibb.co/b6wQOL/blog-happybirthdaygram-SIM-copy.png "Logo Title Text 1" | width=50)
 
 Within the Wio LTE box is a cellular antenna. Remove the antenna from it’s packaging and connect the antenna to the back of the Wio where it says LTE main.
 
