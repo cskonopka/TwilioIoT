@@ -1,5 +1,7 @@
 ## 03 - Saying Happy Birthday to my Grandmother with #TwilioIoT
 
+![](https://image.ibb.co/j5ctA0/Blog-Banner.png)
+
 When it came to my Grandmother's 90th birthday I was stumped about what to get her as a gift. She has been a big influence in my life and I wanted to do something that showed that. I knew I wanted to integrate Twilio in some way because when she was younger she was a switchboard operator for Bell Telephone. Then it hit me like a ton of phones. I will create a hardware device with a Programmable Wireless SIM and a button. When she presses the button a voice call will be routed to her phone and an operator will tell her how much I love her and wish her a happy birthday. 
 
 ### What I needed to send some birthday love
