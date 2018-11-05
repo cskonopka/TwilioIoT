@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-    <Message to="sim:DE6b01d1bb8ed6aa4af21a6c7086cdca9a" from="{{From}}">
-     {{Body}}
-   </Message> 
-</Response>
