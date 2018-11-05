@@ -103,10 +103,6 @@ Now remove the [Seeed Studio Grove Button](https://www.seeedstudio.com/Grove-But
 
 ### Software Environment setup
 
-<p align="center">
-  <img width="40%" height="40%" src="https://image.ibb.co/bvtiSf/gif02.gif"/>
-</p>
-
 Next to download [Arduino IDE](https://www.arduino.cc/en/Main/Software). This will be used to program and upload code to the Wio. After installing the Arduino IDE download the [Wio LTE Arduino Library](https://github.com/Seeed-Studio/Wio_LTE_Arduino_Library) from GitHub and follow this guide to [install the library](https://github.com/Seeed-Studio/Wio_LTE_Arduino_Library#usage). The library is a wrapper for the [STM32F4 chip](https://en.wikipedia.org/wiki/STM32#STM32_F4) that utilizes the [Arduino Core](https://arduino.stackexchange.com/questions/35048/explain-what-is-meant-by-arduino-core) and adds [Quectel EC21-A](https://www.quectel.com/UploadFile/Product/Quectel_EC21_LTE_Specification_V1.0.pdf) modem functionality. 
 
 Next put the Wio into Bootloader mode. This mode needs to be enabled for uploading code to the board. To enable Bootloader mode:
@@ -126,6 +122,10 @@ Next put the Wio into Bootloader mode. This mode needs to be enabled for uploadi
 3. Release the BOOT0 button to enable Bootloader mode
 
 ### Creating the code
+
+<p align="center">
+  <img width="40%" height="40%" src="https://image.ibb.co/bvtiSf/gif02.gif"/>
+</p>
 
 Create a new Arduino sketch (File -> New).
 
