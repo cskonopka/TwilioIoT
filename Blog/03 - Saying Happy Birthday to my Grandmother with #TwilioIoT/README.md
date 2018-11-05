@@ -1,6 +1,8 @@
 ## 03 - Saying Happy Birthday to my Grandmother with #TwilioIoT
 
-![](https://image.ibb.co/j5ctA0/Blog-Banner.png)
+<p align="center">
+  <img width="70%" height="70%" src="https://image.ibb.co/j5ctA0/Blog-Banner.png"/>
+</p>
 
 When it came to my Grandmother's 90th birthday I was stumped about what to get her as a gift. She has been a big influence in my life and I wanted to do something that showed that. I knew I wanted to integrate Twilio in some way because when she was younger she was a switchboard operator for Bell Telephone. Then it hit me like a ton of phones. I will create a hardware device with a Programmable Wireless SIM and a button. When she presses the button a voice call will be routed to her phone and an operator will tell her how much I love her and wish her a happy birthday. 
 
@@ -79,9 +81,21 @@ Unbox the [Wio LTE](https://www.seeedstudio.com/Wio-LTE-US-Version-4G%2C-Cat.1%2
 
 Insert the [Twilio SIM](https://www.seeedstudio.com/Twilio-Wireless-SIM-Card-p-3065.html) you registered into the Wio’s SIM slot on the back of the board. 
 
+<p align="center">
+  <img width="40%" height="40%" src="https://image.ibb.co/b6wQOL/blog-happybirthdaygram-SIM-copy.png"/>
+</p>
+
 Within the Wio LTE box is a cellular antenna. Remove the antenna from it’s packaging and connect the antenna to the back of the Wio where it says LTE main.
 
+<p align="center">
+  <img width="40%" height="40%" src="https://image.ibb.co/mr71V0/blog-happybirthdaygram-Antenna.png"/>
+</p>
+
 Now remove the [Seeed Studio Grove Button](https://www.seeedstudio.com/Grove-Button-p-766.html) from it’s packaging and connect the button to the D38 socket of the Wio.
+
+<p align="center">
+  <img width="40%" height="40%" src="https://image.ibb.co/hkyVOL/blog-happybirthdaygram-connected.jpg"/>
+</p>
 
 ### Software Environment setup
 
@@ -91,19 +105,25 @@ Next put the Wio into Bootloader mode. This mode needs to be enabled for uploadi
 
 1. Press and hold the BOOT0 button underneath the board
 
-IMAGE
+<p align="center">
+  <img width="40%" height="40%" src="https://image.ibb.co/i1aYcf/blog-happybirthdaygram-B00-T.png"/>
+</p>
 
 2. Press the RST on the top of the board
 
-IMAGE
+<p align="center">
+  <img width="40%" height="40%" src="https://image.ibb.co/iZEZHf/blog-happybirthdaygram-RST.png"/>
+</p>
 
 3. Release the BOOT0 button to enable Bootloader mode
 
 ### Creating the code
 
-https://gph.is/YeaoHh
-
 Create a new Arduino sketch (File -> New).
+
+<p align="center">
+  <img width="40%" height="40%" src="https://image.ibb.co/nntWf0/blog-happybirthdaygram-sketch.png"/>
+</p>
 
 Start by adding the Wio library file wio_tracker.h and defining a global variable for the [Seeed Studio Grove Button](https://www.seeedstudio.com/Grove-Button-p-766.html) above the [setup()](https://www.arduino.cc/en/Reference/Setup/) function. Next create an instance of the WioTracker using the variable wio and create a counter variable. The counter will be used to [debounce](https://www.arduino.cc/en/Tutorial/Debounce) the button so we have more control over the button’s interaction.
 
@@ -203,12 +223,21 @@ When the button is pressed, state “1”, the counter starts to iterate. A nest
 
 That's all the code we need, to transfer this to the Wio board press upload. 
 
+<p align="center">
+  <img width="40%" height="40%" src="https://image.ibb.co/dXJa7f/blog-happybirthdaygram-upload.png"/>
+</p>
+
 When the upload finishes disconnect the Wio from the Micro-USB cable. Connect the lithium battery to the board. 
 
 ### Box it up
+
+<p align="center">
+  <img width="40%" height="40%" src="https://image.ibb.co/iV3KYL/IMG-3799.jpg"/>
+</p>
 
 For the party I placed the board, battery and antenna in a small box to make it more presentable. I tried my best to make it fancy but I felt it looked cooler exposed with a few parts hidden. [During the event I sat down with my grandmother and presented the box to her](https://www.youtube.com/watch?v=7xkZ7l0JMBI). I managed to record a short video of her demoing it for the first time and she was jazzed about it. I can’t imagine what it must be like seeing the evolution of communication from her eyes and ears. If you are curious what happened I recorded the video so people can see her reaction in real time.
 
 ### Thoughts
 
 After creating this project I realized this could be useful for individuals who may be separated by long distances. And instead of Text-to-Speech an audio file could be used to send personal messages like voicemail in reverse. Sending a love note and reminding others you care is important. What type of #TwilioIoT projects are you building with [Programmable Wireless](https://www.twilio.com/docs/wireless)? Reach out on [Twitter](http://twitter.com/cskonopka) with your comments, questions and projects anytime. See you on the web, ride the wave.
+
