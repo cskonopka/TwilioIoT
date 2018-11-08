@@ -12,7 +12,7 @@ When it came to my Grandma's 90th birthday I was stumped about what to get her a
 - [Twilio Phone Number](https://www.twilio.com/console/phone-numbers/search)
 - [TwiML Bins](https://www.twilio.com/console/runtime/twiml-bins)
 - [Wio LTE Cat.1 board by Seeed Studio](https://www.seeedstudio.com/Wio-LTE-US-Version-4G%2C-Cat.1%2C-GNSS%2C-JavaScript%28Espruino%29-Compatible-p-2957.html)
-- Antenna
+- LTE Antenna
 - Lithium Battery
 - Micro-USB cable
 - [Seeed Studio Grove Button](https://www.seeedstudio.com/Grove-Button-p-766.html)
@@ -36,7 +36,7 @@ Remove the Twilio SIM from it’s packaging, [register and activate your SIM](ht
 
 ### Creating the Text-to-Speech TwiML with Amazon Polly 
 
-I wanted to create a Text-to-Speech message using [TwiML](https://www.twilio.com/docs/glossary/what-is-twilio-markup-language-twiml). TwiML is the XML-based Twilio Markup Language used to help build voice and SMS applications. A [TwiML Bin](https://www.twilio.com/console/runtime/twiml-bins) is a way to prototype an interaction with TwiML without having to create and host a web server yourself. 
+I wanted to create a Text-to-Speech message using [TwiML](https://www.twilio.com/docs/glossary/what-is-twilio-markup-language-twiml). TwiML, or the Twilio Markup Language, is an XML based language which instructs Twilio on how to handle various events such as incoming and outgoing calls, SMS messages and MMS messages. When building a Twilio application you will use TwiML when communicating your desired actions to Twilio. A [TwiML Bin](https://www.twilio.com/console/runtime/twiml-bins) is a way to prototype an interaction with TwiML without having to create and host a web server yourself. 
 To do this I used the TwiML [<Say>](https://www.twilio.com/docs/voice/twiml/say) verb to create a message that will be verbalized when my grandma answers the phone call. And to make it more realistic I used the [voice attribute](https://www.twilio.com/docs/voice/twiml/say#voice) to 
 select a [Amazon Polly](https://www.twilio.com/docs/voice/twiml/say/text-speech#amazon-polly) voice to sound more lifelike.
   
@@ -90,7 +90,7 @@ Insert the [Twilio SIM](https://www.seeedstudio.com/Twilio-Wireless-SIM-Card-p-3
   <img width="40%" height="40%" src="https://image.ibb.co/b6wQOL/blog-happybirthdaygram-SIM-copy.png"/>
 </p>
 
-Within the Wio LTE box is a cellular antenna. Remove the antenna from it’s packaging and connect the antenna to the back of the Wio LTE where it says LTE main.
+Within the Wio LTE box is a LTE antenna. Remove the LTE antenna from it’s packaging and connect the LTE antenna to the back of the Wio LTE where it says LTE main.
 
 <p align="center">
   <img width="40%" height="40%" src="https://image.ibb.co/mr71V0/blog-happybirthdaygram-Antenna.png"/>
@@ -145,12 +145,12 @@ WioTracker wio = WioTracker();
 int counter = 0;
 ```
 
-The [setup()](https://www.arduino.cc/en/Reference/Setup/) function  is used to initialize various aspects of the program at startup. The [pinMode()](https://www.arduino.cc/reference/en/language/functions/digital-io/pinmode/) is used to set the physical pin the Grove Button is connected to and the type of functionality the board expects. Then the board runs through it’s initialization process and connects the Twilio SIM to the cellular network.
+The [setup()](https://www.arduino.cc/en/Reference/Setup/) function is used to initialize various aspects of the program at startup. The [pinMode()](https://www.arduino.cc/reference/en/language/functions/digital-io/pinmode/) is used to set the physical pin the Grove Button is connected to and the type of functionality the board expects. Then the board runs through it’s initialization process and connects the Twilio SIM to the cellular network.
 
 ```arduino
 void setup()
 {
-  // GROVE Button Setup
+  // Grove Button Setup
   pinMode(BUTTON_PIN, INPUT);
 
   // Wio LTE Power Up
@@ -177,7 +177,7 @@ void setup()
 }
 ```
 
-The Grove Button logic for the program is created in the [loop()](https://www.arduino.cc/en/Reference/Loop?setlang=it) function. This function continually listens for changes in the state of the board. In this case it is waiting for the [button state to change](https://www.arduino.cc/en/Tutorial/StateChangeDetection). The variable buttonState reads incoming Grove Button state changes from the physical pin on the board using [digitalRead()](https://www.arduino.cc/reference/en/language/functions/digital-io/digitalread/).
+The Grove Button logic for the program is created in the [loop()](https://www.arduino.cc/en/Reference/Loop?setlang=it) function. This function continually listens for changes in the state of the board. In this case, it is waiting for the [button state to change](https://www.arduino.cc/en/Tutorial/StateChangeDetection). The variable buttonState reads incoming Grove Button state changes from the physical pin on the board using [digitalRead()](https://www.arduino.cc/reference/en/language/functions/digital-io/digitalread/).
 
 ```arduino
 void loop()
@@ -238,13 +238,72 @@ That's all the code we need, to transfer this to the Wio LTE board press upload.
 
 When the upload finishes disconnect the Wio LTE from the Micro-USB cable. Connect the lithium battery to the board. 
 
+### Code Recap
+```arduino
+#include "wio_tracker.h"
+
+#define BUTTON_PIN  (D38)
+
+WioTracker wio = WioTracker();
+int counter = 0;
+
+void setup()
+{
+  // Grove Button Setup
+  pinMode(BUTTON_PIN, INPUT);
+
+  // Wio LTE Setup
+  SerialUSB.println("Wait for power on...");
+  wio.Power_On();
+  SerialUSB.println("Power On O.K!");
+
+  // Wio LTE Initialization
+  while (!wio.init()) {
+    delay(1000);
+    SerialUSB.println("Accessing network...");
+  }
+  SerialUSB.println("Initialize done...");
+
+  // Connect to the network
+  bool ret = wio.waitForNetworkRegister();
+  if (true == ret) {
+    SerialUSB.println("Network accessed!");
+  } else {
+    SerialUSB.println("Network failed!");
+    return;
+  }
+  SerialUSB.println("Ready!");
+}
+
+void loop()
+{
+  // Define Grove Button state
+  int buttonState = digitalRead(BUTTON_PIN);
+
+  // Define the counter functionality
+  if (buttonState == 0) {
+    // Zero counter
+    counter = 0;
+  } else {
+    // Continue counter
+    counter++;
+    // Catch only 1 press, no duplicate calls
+    if (counter == 1) {
+      SerialUSB.println("Happy Birthday sent!");
+      wio.callUp("GRANDMA_PHONE_NUMBER");
+    }
+  }
+  delay(100);
+}
+```
+
 ### Box it up
 
 <p align="center">
   <img width="40%" height="40%" src="https://image.ibb.co/iV3KYL/IMG-3799.jpg"/>
 </p>
 
-For the party I placed the board, battery and antenna in a small box to make it more presentable. I tried my best to make it fancy but I felt it looked cooler exposed with a few parts hidden. [During the event I sat down with my grandma and presented the box to her](https://www.youtube.com/watch?v=7xkZ7l0JMBI). I managed to record a short video of her demoing it for the first time and she was jazzed about it. I can’t imagine what it must be like seeing the evolution of communication from her eyes and ears. If you are curious what happened I recorded the video so people can see her reaction in real time.
+For the party I placed the board, battery and LTE antenna in a small box to make it more presentable. I tried my best to make it fancy but I felt it looked cooler exposed with a few parts hidden. [During the event I sat down with my grandma and presented the box to her](https://www.youtube.com/watch?v=7xkZ7l0JMBI). I managed to record a short video of her demoing it for the first time and she was jazzed about it. I can’t imagine what it must be like seeing the evolution of communication from her eyes and ears. If you are curious what happened I recorded the video so people can see her reaction in real time.
 
 ### Thoughts
 
