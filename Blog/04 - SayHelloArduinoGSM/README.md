@@ -390,16 +390,13 @@ And finally the M2M Command reaches the server and the “helloworld.mp3”
   <img width="100%" height="100%" src="https://i.ibb.co/zncZJMW/arduinogsm-go.png"/>
 </p>
 
-video
+[video](https://www.youtube.com/watch?v=LZj-rCbhNcA)
 
 Celltactular!
 
 ## Continue to connect things
 You just sent your first M2M Command using magic.
 
-<p align="center">
-  <img width="47%" height="47%" src="https://i.ibb.co/yYkv6zq/arduinogsm-gif05.gif/>
-</p>
 
 This M2M Command model is a foundational piece of how to use Twilio to send M2M Commands from a remote hardware device. With the integrated modem and software for sending AT commands as functions, it makes the Arduino MKR GSM 1400 an ideal piece for any IoT prototyping kit.
 
