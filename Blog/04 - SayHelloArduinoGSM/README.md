@@ -98,7 +98,6 @@ Connect the board to the computer using a Micro-USB cable and you are geared up 
 In the Arduino IDE create a new Arduino sketch (File > New). A template is provided that look something like this.
 
 ``` arduino
-
 void setup(){
 
 }
@@ -411,7 +410,3 @@ Feel free to reach out with any questions or curiousity. If you have any cool pr
 - Email: ckonopka@twilio.com
 - Github: cskonopka
 - Twitter: @cskonopka
-
-
-
-
