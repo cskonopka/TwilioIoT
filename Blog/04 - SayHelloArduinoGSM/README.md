@@ -1,23 +1,109 @@
-## 03 - Saying Happy Birthday to my Grandma with #TwilioIoT
+# 03 - Say hello to the Arduino MKR GSM 1400 with Programmable Wireless and Go
 
 <p align="center">
-  <img width="70%" height="70%" src="https://image.ibb.co/j5ctA0/Blog-Banner.png"/>
+  <img width="70%" height="70%" src="https://i.ibb.co/jRgZ01P/mkr1400.jpg"/>
 </p>
 
-When it came to my Grandma's 90th birthday I was stumped about what to get her as a gift. She has been a big influence in my life and I wanted to do something that showed that. I knew I wanted to integrate Twilio in some way because when she was younger she was a switchboard operator for [Bell Telephone](https://en.wikipedia.org/wiki/Bell_System). Then it hit me like a ton of phones. I will create a hardware device with a [Programmable Wireless](https://www.twilio.com/docs/wireless) [SIM](https://www.twilio.com/console/wireless/orders/new) and a button. When she presses the button a voice call will be routed to her phone and an operator will tell her how much I love her and wish her a happy birthday. 
+When it came to my Grandma's 90th birthday I was stumped about what to get her as a gift. She has been a big influence in my life and I wanted to do something that showed that. I knew I wanted to integrate Twilio in some way because when she was younger she was a switchboard operator for [Bell Telephone](https://en.wikipedia.org/wiki/Bell_System). Then it hit me like a ton of phones. I will create a hardware device with a [Programmable Wireless](https://www.twilio.com/docs/wireless) [SIM](https://www.twilio.com/console/wireless/orders/new) and a button. When she presses the button a voice call will be routed to her phone and an operator will tell her how much I love her and wish her a happy birthday.
 
-### What I needed to send some birthday love
+The new [MKR family](https://maker.pro/arduino/tutorial/an-introduction-to-arduinos-mkr-family-and-iot-development-boards) of Arduino boards are going to change the landscape of rapid prototyping IoT solutions. The [Arduino MKR GSM 1400](https://www.arduino.cc/en/Guide/MKRGSM1400) is a great solution for anyone looking to expand the scope of their IoT projects using cellular connectivity. By integrating a modem with a microcontroller a new all-in-one communication solution has started to emerge. This paired with the [Twilio Programmable Wireless SIM](https://www.amazon.com/Twilio-001-Starter-Pack-SIMs/dp/B07C8T3QDT) makes it possible to communicate around the globe using Machine-to-Machine commands. “Things” can now be connected in ways previously impossible with WiFi or Bluetooth.
 
-- [Twilio SIM](https://www.seeedstudio.com/Twilio-Wireless-SIM-Card-p-3065.html)
-- [Twilio Phone Number](https://www.twilio.com/console/phone-numbers/search)
-- [TwiML Bins](https://www.twilio.com/console/runtime/twiml-bins)
-- [Wio LTE Cat.1 board by Seeed Studio](https://www.seeedstudio.com/Wio-LTE-US-Version-4G%2C-Cat.1%2C-GNSS%2C-JavaScript%28Espruino%29-Compatible-p-2957.html)
-- LTE Antenna
-- Lithium Battery
-- Micro-USB cable
-- [Seeed Studio Grove Button](https://www.seeedstudio.com/Grove-Button-p-766.html)
+This tutorial demonstrates how to send a Machine-to-Machine Command from the [Arduino MKR GSM 1400](https://www.arduino.cc/en/Guide/MKRGSM1400) to a server written in Go. When the Machine-to-Machine Command is received server-side an audio file will play a .mp3 saying “hello”. The completed project can be found on GitHub.
+
+## What is the Arduino MKR GSM 1400?
+The Arduino MKR GSM 1400 is a development board that combines the functionality of the Arduino Zero with global GSM connectivity using the u-blox SARAU201 modem. Traditionally communicating with a modem is done using AT commands using a separate module. This model board ships with a library that makes AT commands more accessible via function calls.
+
+
+### Hardware Requirements
+
+- [Twilio Programmable Wireless SIM](https://www.amazon.com/Twilio-001-Starter-Pack-SIMs/dp/B07C8T3QDT)
+- [Arduino MKR GSM 1400](https://store.arduino.cc/usa/mkr-gsm-1400)
+- GSM Antenna
+- Micro USB cable
+
+### Software Requirements
+
 - [Arduino IDE](https://www.arduino.cc/en/Main/Software)
-- [Wio LTE Arduino Library](https://github.com/Seeed-Studio/Wio_LTE_Arduino_Library)
+- [Go](https://golang.org/doc/install)
+- [Beep library for Go](https://github.com/faiface/beep)
+- [ngrok](http://ngrok.com/)
+
+## Setting up the Twilio SIM
+[image]
+
+Remove the Twilio SIM from it’s packaging. Next register and activate your SIM in the Twilio Console.
+
+## Software side of things
+
+Before programming the hardware we need to install a few pieces of software to make it work. To be able to send M2M Commands using the on-board modem we will need the MKRGSM library.
+
+Open the Arduino IDE and go to Sketch > Manage Libraries. This is where Arduino and 3rd party libraries can be installed into the Arduino IDE.
+
+<p align="center">
+  <img width="100%" height="100%" src="https://i.ibb.co/LSc9wwt/arduinogsm-managerlibrary.png"/>
+</p>
+
+When the Library Manager window pops up search for the MKRGSM library and press install. The MKRGSM library wraps AT commands into functions, making it easier to communicate with the modem. It’s phonetabulous trust me.
+
+<p align="center">
+  <img width="100%" height="100%" src="https://i.ibb.co/TrFDtBs/arduinogsm-librarymanager.png"/>
+</p>
+
+After the library is installed we need to install the Arduino MKR GSM 1400 board cores. The Arduino MKR GSM 1400 uses a different chipset than traditional Arduinos that use AVR ATmega chipsets. This board uses the SAMD21 Cortex-M0+ and it requires a different set cores. The cores do not come with the Arduino IDE and they are needed for the computer to recognize the board when connected.
+
+Locate the Board Manager under Tools > Board > Board Manager.
+
+<p align="center">
+  <img width="100%" height="100%" src="https://i.ibb.co/QXgZ0X0/Screen-Shot-2018-11-16-at-10-40-44-AM.png"/>
+</p>
+
+When the Board Manager window appears search for the Arduino SAMD Boards and install the cores.  
+
+<p align="center">
+  <img width="100%" height="100%" src="https://i.ibb.co/cDC99cT/arduinogsm-boardmanager.png"/>
+</p>
+
+Restart the Arduino IDE to complete the installation.
+
+Great! Time to move on to the hardware setup.
+
+## Hardware side of things
+To send M2M Commands over the network we need to install the Twilio SIM. Break out the Micro SIM from the Twilio SIM card
+
+<p align="center">
+  <img width="100%" height="100%" src="https://i.ibb.co/zR6zTz1/arduinogsm-Sim-Size.png"/>
+</p>
+
+Insert the Twilio SIM into the SIM slot underneath the board.
+
+<p align="center">
+  <img width="100%" height="100%" src="https://i.ibb.co/qFWS7mz/arduinogsm-sim.jpg"/>
+</p>
+
+Next, attach the GSM antenna to the board.
+
+<p align="center">
+  <img width="100%" height="100%" src="https://i.ibb.co/2cnnmpD/arduinogsm-antenna.jpg"/>
+</p>
+
+Connect the board to the computer using a Micro-USB cable and you are geared up to connect to the network.
+
+## Creating the Arduino sketch
+
+<p align="center">
+  <img width="100%" height="100%" src="https://i.ibb.co/MZ1B5GJ/arduinogsm-gif01.gif"/>
+</p>
+
+In the Arduino IDE create a new Arduino sketch (File > New). A template is provided that look something like this.
+
+
+
+
+
+
+
+
+
 
 ### How does this work?
 
