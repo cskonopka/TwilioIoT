@@ -1,3 +1,10 @@
+/*
+ 04 - Say hello to the Arduino MKR GSM 1400 with Programmable Wireless and Go
+ Christopher Konopka
+ Twilio IoT Developer Evangelist
+ https://github.com/cskonopka/TwilioIoT/tree/master/Blog/04%20-%20SayHelloArduinoGSM
+*/
+
 // Include the GSM library
 #include <MKRGSM.h>
 

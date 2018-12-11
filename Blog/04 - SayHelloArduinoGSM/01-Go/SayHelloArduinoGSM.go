@@ -1,3 +1,10 @@
+/*
+ 04 - Say hello to the Arduino MKR GSM 1400 with Programmable Wireless and Go
+ Christopher Konopka
+ Twilio IoT Developer Evangelist
+ https://github.com/cskonopka/TwilioIoT/tree/master/Blog/04%20-%20SayHelloArduinoGSM
+*/
+
 package main
 
 import (
@@ -27,7 +34,7 @@ func helloworld(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("incoming Command from Arduino MKR GSM 1400 : ", pwCommand)
 
 	fmt.Println("Playing audio file!")
-	f, err := os.Open("hello.mp3")
+	f, err := os.Open("helloworld.mp3")
 	if err != nil {
 		log.Fatal(err)
 	}
