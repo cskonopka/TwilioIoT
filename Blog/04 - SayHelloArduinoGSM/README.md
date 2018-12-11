@@ -4,8 +4,6 @@
   <img width="70%" height="70%" src="https://i.ibb.co/jRgZ01P/mkr1400.jpg"/>
 </p>
 
-When it came to my Grandma's 90th birthday I was stumped about what to get her as a gift. She has been a big influence in my life and I wanted to do something that showed that. I knew I wanted to integrate Twilio in some way because when she was younger she was a switchboard operator for [Bell Telephone](https://en.wikipedia.org/wiki/Bell_System). Then it hit me like a ton of phones. I will create a hardware device with a [Programmable Wireless](https://www.twilio.com/docs/wireless) [SIM](https://www.twilio.com/console/wireless/orders/new) and a button. When she presses the button a voice call will be routed to her phone and an operator will tell her how much I love her and wish her a happy birthday.
-
 The new [MKR family](https://maker.pro/arduino/tutorial/an-introduction-to-arduinos-mkr-family-and-iot-development-boards) of Arduino boards are going to change the landscape of rapid prototyping IoT solutions. The [Arduino MKR GSM 1400](https://www.arduino.cc/en/Guide/MKRGSM1400) is a great solution for anyone looking to expand the scope of their IoT projects using cellular connectivity. By integrating a modem with a microcontroller a new all-in-one communication solution has started to emerge. This paired with the [Twilio Programmable Wireless SIM](https://www.amazon.com/Twilio-001-Starter-Pack-SIMs/dp/B07C8T3QDT) makes it possible to communicate around the globe using Machine-to-Machine commands. “Things” can now be connected in ways previously impossible with WiFi or Bluetooth.
 
 This tutorial demonstrates how to send a Machine-to-Machine Command from the [Arduino MKR GSM 1400](https://www.arduino.cc/en/Guide/MKRGSM1400) to a server written in Go. When the Machine-to-Machine Command is received server-side an audio file will play a .mp3 saying “hello”. The completed project can be found on GitHub.
@@ -71,19 +69,19 @@ Great! Time to move on to the hardware setup.
 To send M2M Commands over the network we need to install the Twilio SIM. Break out the Micro SIM from the Twilio SIM card
 
 <p align="center">
-  <img width="100%" height="100%" src="https://i.ibb.co/zR6zTz1/arduinogsm-Sim-Size.png"/>
+  <img width="65%" height="65%" src="https://i.ibb.co/zR6zTz1/arduinogsm-Sim-Size.png"/>
 </p>
 
 Insert the Twilio SIM into the SIM slot underneath the board.
 
 <p align="center">
-  <img width="100%" height="100%" src="https://i.ibb.co/qFWS7mz/arduinogsm-sim.jpg"/>
+  <img width="65%" height="65%" src="https://i.ibb.co/qFWS7mz/arduinogsm-sim.jpg"/>
 </p>
 
 Next, attach the GSM antenna to the board.
 
 <p align="center">
-  <img width="100%" height="100%" src="https://i.ibb.co/2cnnmpD/arduinogsm-antenna.jpg"/>
+  <img width="65%" height="65%" src="https://i.ibb.co/2cnnmpD/arduinogsm-antenna.jpg"/>
 </p>
 
 Connect the board to the computer using a Micro-USB cable and you are geared up to connect to the network.
@@ -91,309 +89,326 @@ Connect the board to the computer using a Micro-USB cable and you are geared up 
 ## Creating the Arduino sketch
 
 <p align="center">
-  <img width="100%" height="100%" src="https://i.ibb.co/MZ1B5GJ/arduinogsm-gif01.gif"/>
+  <img width="50%" height="50%" src="https://i.ibb.co/MZ1B5GJ/arduinogsm-gif01.gif"/>
 </p>
 
 In the Arduino IDE create a new Arduino sketch (File > New). A template is provided that look something like this.
 
+``` arduino
 
+void setup(){
 
+}
 
+void loop(){
 
-
-
-
-
-
-### How does this work?
-
-<p align="center">
-  <img width="40%" height="40%" src="https://image.ibb.co/kwmRf0/gif03.gif"/>
-</p>
-
-I want to generate a call from my [Twilio SIM](https://www.twilio.com/console/wireless/orders/new) using the [Wio LTE board](https://www.seeedstudio.com/-LTE-US-Version-4G%2C-Cat.1%2C-GNSS%2C-JavaScript%28Espruino%29-Compatible-p-2957.html). A Grove Button is connected to the Wio LTE and is used for physical interaction. When the Grove Button is clicked it will trigger a callback in Twilio. To make the call I need to create some [TwiML](https://www.twilio.com/docs/voice/twiml) which will respond to the callback. Then when the call connects I need another piece of TwiML which will play a [Text-to-Speech](https://www.twilio.com/docs/voice/twiml/say/text-speech) message using [Amazon Polly](https://www.twilio.com/docs/voice/twiml/say/text-speech). Since we are connecting a SIM card on a board to a real device, we'll use a little workaround to get the message played. By including a `url` attribute on [`<Number>`](https://www.twilio.com/docs/voice/twiml/number) Twilio will play the TwiML to the person who answers the phone before they are connected. This is known as a [whisper](https://www.twilio.com/docs/glossary/call-whisper).
-
-### Purchase a Twilio number & register a Twilio SIM
-
-First things first, purchase a [Twilio phone number](https://www.twilio.com/console/phone-numbers/search). This phone number will be used to route the call from the [Programmable Wireless](https://www.twilio.com/docs/wireless) SIM to my grandma’s phone using voice data. 
-
-Remove the Twilio SIM from it’s packaging, [register and activate your SIM](https://www.twilio.com/docs/wireless/tutorials/how-to-order-and-register-your-first-sim). 
-
-### Creating the Text-to-Speech TwiML with Amazon Polly 
-
-I wanted to create a Text-to-Speech message using [TwiML](https://www.twilio.com/docs/glossary/what-is-twilio-markup-language-twiml). TwiML, or the Twilio Markup Language, is an XML based language which instructs Twilio on how to handle various events such as incoming and outgoing calls, SMS messages and MMS messages. When building a Twilio application you will use TwiML when communicating your desired actions to Twilio. A [TwiML Bin](https://www.twilio.com/console/runtime/twiml-bins) is a way to prototype an interaction with TwiML without having to create and host a web server yourself. 
-To do this I used the TwiML [<Say>](https://www.twilio.com/docs/voice/twiml/say) verb to create a message that will be verbalized when my grandma answers the phone call. And to make it more realistic I used the [voice attribute](https://www.twilio.com/docs/voice/twiml/say#voice) to 
-select a [Amazon Polly](https://www.twilio.com/docs/voice/twiml/say/text-speech#amazon-polly) voice to sound more lifelike.
-  
-- Navigate to [Runtime](https://www.twilio.com/console/runtime/overview) in the Twilio Console
-- Click TwiML Bins
-- Click the + to add a new [TwiML Bin](https://www.twilio.com/console/runtime/twiml-bins)
-- Create new a new TwiML <Response>
-- Add the <Say> verb 
-- Add the [voice attribute](https://www.twilio.com/docs/voice/twiml/say#voice) to specify an [Amazon Polly](https://www.twilio.com/docs/voice/twiml/say/text-speech#amazon-polly) voice 
-- Specify the language with the [language attribute](https://www.twilio.com/docs/voice/twiml/say#attributes-language)
-- Press save
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-    	<Say voice="Polly.Joey" language="en-US">Happy Birthday Gram! I love you.</Say>
-</Response>
-```
-Your TwiML should look like this when you complete the following above steps. Save the TwiML Bin and make sure to copy the URL of the TwiML Bin, it will used momentarily.
-
-### Creating the Programmable Voice URL TwiML for your SIM
-
-The [Text-to-Speech](https://www.twilio.com/docs/voice/twiml/say/text-speech) part is ready, next I need to route the inbound [Programmable Voice](https://www.twilio.com/docs/voice) call from the SIM using TwiML. These are the steps to set this up:
-
-- Navigate to [Programmable Wireless](https://www.twilio.com/console/wireless) in the Twilio Console
-- In [Overview](https://www.twilio.com/console/wireless), select the newly registered SIM
-- Click the Programmable Voice & SMS tab
-- Under Programmable Voice & SMS change the Voice Url to TwiML 
-- Paste the TwiML below into the box
-- Add your Twilio phone number to the [callerId attribute](https://www.twilio.com/docs/voice/twiml/dial#callerid) of the Dial Verb
-- Paste the TwiML Bin URL into the [URL attribute](https://www.twilio.com/docs/voice/twiml/number#attributes-url) of the Number noun
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-    <Dial callerId="YOUR_TWILIO_NUMBER">
-		<Number url="TWIML_BIN_URL">{{To}}</Number>
-  	</Dial>
-</Response>
-```
-
-Great! The SIM is now configured to route an outgoing voice call with a Twilio number and read a custom message to my grandma using Text-to-Speech. That was a mouthful of cake, no doubt. Next let’s make this into a physical device. 
-
-### Hardware setup
-
-Unbox the [Wio LTE](https://www.seeedstudio.com/Wio-LTE-US-Version-4G%2C-Cat.1%2C-GNSS%2C-JavaScript%28Espruino%29-Compatible-p-2957.html) board and connect the board to the computer using the Micro-USB cable provided. Depending on the operating system a [USB driver](http://wiki.seeedstudio.com/Wio_LTE_Cat.1/#install-usb-driver) may be needed to connect to the Wio LTE.
-
-Insert the [Twilio SIM](https://www.seeedstudio.com/Twilio-Wireless-SIM-Card-p-3065.html) you registered into the Wio LTE’s SIM slot on the back of the board. 
-
-<p align="center">
-  <img width="40%" height="40%" src="https://image.ibb.co/b6wQOL/blog-happybirthdaygram-SIM-copy.png"/>
-</p>
-
-Within the Wio LTE box is a LTE antenna. Remove the LTE antenna from it’s packaging and connect the LTE antenna to the back of the Wio LTE where it says LTE main.
-
-<p align="center">
-  <img width="40%" height="40%" src="https://image.ibb.co/mr71V0/blog-happybirthdaygram-Antenna.png"/>
-</p>
-
-Now remove the [Grove Button](https://www.seeedstudio.com/Grove-Button-p-766.html) from it’s packaging and connect the Grove Button to the D38 socket of the Wio LTE.
-
-<p align="center">
-  <img width="40%" height="40%" src="https://image.ibb.co/hkyVOL/blog-happybirthdaygram-connected.jpg"/>
-</p>
-
-### Software Environment setup
-
-Next to download [Arduino IDE](https://www.arduino.cc/en/Main/Software). This will be used to program and upload code to the Wio LTE. After installing the Arduino IDE download the [Wio LTE Arduino Library](https://github.com/Seeed-Studio/Wio_LTE_Arduino_Library) from GitHub and follow this guide to [install the library](https://github.com/Seeed-Studio/Wio_LTE_Arduino_Library#usage). The library is a wrapper for the [STM32F4 chip](https://en.wikipedia.org/wiki/STM32#STM32_F4) that utilizes the [Arduino Core](https://arduino.stackexchange.com/questions/35048/explain-what-is-meant-by-arduino-core) and adds [Quectel EC21-A](https://www.quectel.com/UploadFile/Product/Quectel_EC21_LTE_Specification_V1.0.pdf) modem functionality. 
-
-Next put the Wio LTE into Bootloader mode. This mode needs to be enabled for uploading code to the board. To enable Bootloader mode:
-
-1. Press and hold the BOOT0 button underneath the board
-
-<p align="center">
-  <img width="40%" height="40%" src="https://image.ibb.co/i1aYcf/blog-happybirthdaygram-B00-T.png"/>
-</p>
-
-2. Press the RST on the top of the board
-
-<p align="center">
-  <img width="40%" height="40%" src="https://image.ibb.co/iZEZHf/blog-happybirthdaygram-RST.png"/>
-</p>
-
-3. Release the BOOT0 button to enable Bootloader mode
-
-### Creating the code
-
-<p align="center">
-  <img width="40%" height="40%" src="https://image.ibb.co/bvtiSf/gif02.gif"/>
-</p>
-
-Create a new Arduino sketch (File -> New).
-
-<p align="center">
-  <img width="40%" height="40%" src="https://image.ibb.co/nntWf0/blog-happybirthdaygram-sketch.png"/>
-</p>
-
-Start by adding the Wio LTE library file wio_tracker.h and defining a global variable for the [Grove Button](https://www.seeedstudio.com/Grove-Button-p-766.html) above the [setup()](https://www.arduino.cc/en/Reference/Setup/) function. Next create an instance of the WioTracker using the variable wio and create a counter variable. The counter will be used to [debounce](https://www.arduino.cc/en/Tutorial/Debounce) the Grove button so we have more control over the Grove button’s interaction.
-
-```arduino
-#include "wio_tracker.h"
-
-#define BUTTON_PIN  (D38)
-
-WioTracker wio = WioTracker();
-int counter = 0;
-```
-
-The [setup()](https://www.arduino.cc/en/Reference/Setup/) function is used to initialize various aspects of the program at startup. The [pinMode()](https://www.arduino.cc/reference/en/language/functions/digital-io/pinmode/) is used to set the physical pin the Grove Button is connected to and the type of functionality the board expects. Then the board runs through it’s initialization process and connects the Twilio SIM to the cellular network.
-
-```arduino
-void setup()
-{
-  // Grove Button Setup
-  pinMode(BUTTON_PIN, INPUT);
-
-  // Wio LTE Power Up
-  SerialUSB.println("Wait for power on...");
-  wio.Power_On();
-  SerialUSB.println("Power On O.K!");
-
-  // Wio LTE Initialization
-  while (!wio.init()) {
-    delay(1000);
-    SerialUSB.println("Accessing network...");
-  }
-  SerialUSB.println("Initialize done...");
-
-  // Connect to the network
-  bool ret = wio.waitForNetworkRegister();
-  if (true == ret) {
-    SerialUSB.println("Network accessed!");
-  } else {
-    SerialUSB.println("Network failed!");
-    return;
-  }
-  SerialUSB.println("Ready!");
 }
 ```
 
-The Grove Button logic for the program is created in the [loop()](https://www.arduino.cc/en/Reference/Loop?setlang=it) function. This function continually listens for changes in the state of the board. In this case, it is waiting for the [button state to change](https://www.arduino.cc/en/Tutorial/StateChangeDetection). The variable buttonState reads incoming Grove Button state changes from the physical pin on the board using [digitalRead()](https://www.arduino.cc/reference/en/language/functions/digital-io/digitalread/).
+Instantiate the base class GSM for all of the GSM functions. To send and receive SMS messages the GSM SMS class needs to be instantiated as well. This happens before the setup() function.
 
 ```arduino
-void loop()
-{
-  // Define Grove Button state
-  int buttonState = digitalRead(BUTTON_PIN);
+#include <MKRGSM.h>
 
-  // Define the counter functionality
-  if (buttonState == 0) {
-    // Zero counter
-    counter = 0;
-  } else {
-    // Continue counter
-    counter++;
-    // Catch only 1 press, no duplicate calls
-    if (counter == 1) {
-      SerialUSB.println("Happy Birthday sent!");
-      wio.callUp("GRANDMA_PHONE_NUMBER");
-    }
-  }
-  // Restart
-  delay(100);
-}
-
+GSM gsmAccess;
+GSM_SMS sms;
 ```
 
-The main if-statement manages the incoming state changes. The counter is used as a way to [debounce](https://www.arduino.cc/en/Tutorial/Debounce) the Grove Button so only a single call is made. If there was no debouncing logic the program would continue to make calls every 100ms while the Grove Button is held down.
+In the setup() function create a serial connection with a baud of 115200. The baud rate determines the speed of data over a specific communication channel.
 
-When the Grove Button is not being pressed, state “0”, the counter will reset to 0. 
-
-```arduino
-  if (buttonState == 0) {
-    // Zero counter
-    counter = 0;
-  }
+``` arduino
+Serial.begin(115200);
 ```
 
-When the Grove Button is pressed, state “1”, the counter starts to iterate. A nested if-statement is used to catch a specific number created by the counter. When the number 1 is caught the call is made to my grandma using `wio.callUp("GRANDMA_PHONE_NUMBER")`.  
+Use the gsmAccess.begin() function to connect to the cellular network that is identified on the Twilio SIM.
 
 ```arduino
- else {
-    // Continue counter
-    counter++;
-    // Catch only 1 press, no duplicate calls
-    if (counter == 1) {
-      SerialUSB.println("Happy Birthday sent!");
-      wio.callUp("GRANDMA_PHONE_NUMBER");
-    }
-  }
-
+gsmAccess.begin();
+Serial.println("GSM initialized");
 ```
 
-That's all the code we need, to transfer this to the Wio LTE board press upload. 
+In the loop() function define the phone number where the M2M Command will be sent using the beginSMS function. The number we will use is “2936”. This is a special Twilio shortcode that is reserved for exchanging M2M Commands between Twilio SIMs. It uses the SMS transport to send M2M Commands over a cellular network. When a Twilio SIM creates a M2M Command a Webhook is generated, we will discuss this shortly.
 
-<p align="center">
-  <img width="40%" height="40%" src="https://image.ibb.co/dXJa7f/blog-happybirthdaygram-upload.png"/>
-</p>
+``` arduino
+sms.beginSMS("2936");
+```
 
-When the upload finishes disconnect the Wio LTE from the Micro-USB cable. Connect the lithium battery to the board. 
+Pass a char array to the function sms.print() to create a new message to be queued.
 
-### Code Recap
+```arduino	
+sms.print("hello world");
+Serial.println(“Sending M2M Command”);
+```
+
+After a message is created and queued use the endSMS() function to tell the modem the process is complete. Once this happens the “hello world” message will then be sent.
+
 ```arduino
-#include "wio_tracker.h"
+sms.endSMS();
+Serial.println("M2M Command Sent!");
+```
 
-#define BUTTON_PIN  (D38)
+The last bit of code is a while loop that will capture the program and place it in an infinite loop. The purpose of this is to ensure the M2M Command is only sent once.
 
-WioTracker wio = WioTracker();
-int counter = 0;
-
-void setup()
-{
-  // Grove Button Setup
-  pinMode(BUTTON_PIN, INPUT);
-
-  // Wio LTE Setup
-  SerialUSB.println("Wait for power on...");
-  wio.Power_On();
-  SerialUSB.println("Power On O.K!");
-
-  // Wio LTE Initialization
-  while (!wio.init()) {
-    delay(1000);
-    SerialUSB.println("Accessing network...");
-  }
-  SerialUSB.println("Initialize done...");
-
-  // Connect to the network
-  bool ret = wio.waitForNetworkRegister();
-  if (true == ret) {
-    SerialUSB.println("Network accessed!");
-  } else {
-    SerialUSB.println("Network failed!");
-    return;
-  }
-  SerialUSB.println("Ready!");
-}
-
-void loop()
-{
-  // Define Grove Button state
-  int buttonState = digitalRead(BUTTON_PIN);
-
-  // Define the counter functionality
-  if (buttonState == 0) {
-    // Zero counter
-    counter = 0;
-  } else {
-    // Continue counter
-    counter++;
-    // Catch only 1 press, no duplicate calls
-    if (counter == 1) {
-      SerialUSB.println("Happy Birthday sent!");
-      wio.callUp("GRANDMA_PHONE_NUMBER");
-    }
-  }
-  delay(100);
+``` arduino
+while(1) {
+    	delay(4000);
 }
 ```
 
-### Box it up
+Completed sketch:
+
+```arduino
+#include <MKRGSM.h>
+
+GSM gsmAccess;
+GSM_SMS sms;
+
+void setup(){
+	Serial.begin(115200);
+
+	gsmAccess.begin();
+	Serial.println("GSM initialized");
+
+	sms.beginSMS("2936");
+
+        sms.print("hello world");
+        Serial.println(“Sending M2M Command”);
+
+       sms.endSMS();
+       Serial.println("M2M Command Sent!");
+
+       while(1) {
+               delay(4000);
+       }  
+}
+```
+
+Double check that the board has been selected under Tools > Board. If it is not selected the compiler will throw an error when you try to upload the code.
 
 <p align="center">
-  <img width="40%" height="40%" src="https://image.ibb.co/iV3KYL/IMG-3799.jpg"/>
+  <img width="100%" height="100%" src="https://i.ibb.co/RyvNGG8/arduinogsm-selectboard.png"/>
 </p>
 
-For the party I placed the board, battery and LTE antenna in a small box to make it more presentable. I tried my best to make it fancy but I felt it looked cooler exposed with a few parts hidden. [During the event I sat down with my grandma and presented the box to her](https://www.youtube.com/watch?v=7xkZ7l0JMBI). I managed to record a short video of her demoing it for the first time and she was jazzed about it. I can’t imagine what it must be like seeing the evolution of communication from her eyes and ears. If you are curious what happened I recorded the video so people can see her reaction in real time.
+Save the new sketch as "SayHelloArduinoGSM.ino". Before uploading the new sketch to the board let’s create a server to receive the M2M Command using Go.
 
-### Thoughts
-
-After creating this project I realized this could be useful for individuals who may be separated by long distances. And instead of Text-to-Speech an audio file could be used to send personal messages like voicemail in reverse. Sending a love note and reminding others you care is important. What type of #TwilioIoT projects are you building with [Programmable Wireless](https://www.twilio.com/docs/wireless)? Reach out on [Twitter](http://twitter.com/cskonopka) with your comments, questions and projects anytime. See you on the web, ride the wave.
+## Spinning up an audio response server with Go and Beep
 
 <p align="center">
-  <img width="40%" height="40%" src="https://image.ibb.co/nhYNL0/gif01.gif"/>
+  <img width="100%" height="100%" src="https://i.ibb.co/3hYQtSz/arduinogsm-gif02.gif"/>
 </p>
+
+Create a new Go program named “SayHelloArduinoGSM.go” using the template below.
+
+``` go
+package main
+
+import ( 
+
+)
+
+func main(){
+}
+```
+
+Next add the following libraries to the import section. This is where you link external libraries like Beep to a Go program.
+
+```go
+package main
+
+import (
+        "fmt"
+	"github.com/faiface/beep"
+	"github.com/faiface/beep/mp3"
+	"github.com/faiface/beep/speaker"
+	"log"
+	"net/http"
+	"os"
+	"time"
+)
+```
+
+Inside the main function create a new server route using HandleFunc() from the net/http library. This will generate a new server-side route (“/helloworld”) for receiving M2M Commands from the “2936” shortcode. When an M2M Command is received it will then be funneled to the helloworld function. Open up a port and listen for incoming connections using the ListenAndServe() function on port 9999.
+
+```go
+func main(){
+	http.HandleFunc("/helloworld", helloworld)
+	http.ListenAndServe(":9999", nil)
+}
+```
+
+Fantastic. Now we have to create the helloworld function. The HTTP request received by this function will be represented by the http.Request type.
+
+```go
+func helloworld(w http.ResponseWriter, r *http.Request) {
+
+}
+```
+
+When the request is received the M2M Command needs to be parsed. Use the ParseForm() function to parse the request body as a form.
+
+```go
+	if err := r.ParseForm(); err != nil {
+		log.Printf("Error parsing form: %s", err)
+		return
+	}
+```
+
+The data from the body can be extracted using the PostFormValue() function by passing it a key. The key will give you the value associated with the named component in the JSON response. In this case we are looking for the value of the “Command” key.
+
+```go
+	pwCommand := r.PostFormValue("Command")
+	fmt.Println("pwCommand : ", pwCommand)
+```
+
+And to add a little spice let’s at some Beep code to play an audio file through your system’s audio when the Command successfully reaches the server.
+
+```go
+	f, err := os.Open("hello.mp3")
+	if err != nil {
+		log.Fatal(err)
+	}
+	s, format, _ := mp3.Decode(f)
+	speaker.Init(format.SampleRate, format.SampleRate.N(time.Second/10))
+	playing := make(chan struct{})
+	speaker.Play(beep.Seq(s, beep.Callback(func() {
+		close(playing)
+	})))
+	<-playing
+```
+
+Complete program:
+
+```go
+package main
+
+import (
+	"fmt"
+	"log"
+	"net/http"
+	"os"
+	"time"
+
+	"github.com/faiface/beep"
+	"github.com/faiface/beep/mp3"
+	"github.com/faiface/beep/speaker"
+)
+
+func main() {
+	http.HandleFunc("/helloworld", helloworld)
+	http.ListenAndServe(":9999", nil)
+}
+
+func helloworld(w http.ResponseWriter, r *http.Request) {
+	if err := r.ParseForm(); err != nil {
+		log.Printf("Error parsing form: %s", err)
+		return
+	}
+
+	pwCommand := r.PostFormValue("Command")
+	fmt.Println("incoming Command from Arduino MKR GSM 1400 : ", pwCommand)
+
+	fmt.Println("Playing audio file!")
+	f, err := os.Open("helloworld.mp3")
+	if err != nil {
+		log.Fatal(err)
+	}
+	s, format, _ := mp3.Decode(f)
+	speaker.Init(format.SampleRate, format.SampleRate.N(time.Second/10))
+	playing := make(chan struct{})
+	speaker.Play(beep.Seq(s, beep.Callback(func() {
+		close(playing)
+	})))
+	<-playing
+}
+```
+
+Start the server.
+
+```go	
+go run SayHelloArduinoGSM.go
+```
+
+## Constructing the bridge with ngrok
+
+Currently the hardware and software pieces exist individually. ngrok will be used to bridge the gap.
+
+<p align="center">
+  <img width="100%" height="100%" src="https://i.ibb.co/FBY14WF/arduinogsm-gif04.gif"/>
+</p>
+
+When the SIM sends a M2M Command to Twilio a Webhook is sent to a user-defined url called the Commands Callback Url. We will use ngrok to receive this Webhook and then route it to the server running on our own machine. To make the connection, start a new ngrok instance on the same port where the server is running.
+
+``` bash
+ngrok http 9999
+```
+
+Copy the Forwarding url that was created with ngrok (http://xxxxxxxx.ngrok.io)
+
+<p align="center">
+  <img width="100%" height="100%" src="https://i.ibb.co/hd21bwv/arduinomkrgsm-ngrok-copy.png"/>
+</p>
+
+Navigate to Programmable Wireless in the Twilio console. Locate the SIM that you previously registered under SIMs. Under the Configure tab you will find the Commands Callback Url. Paste the ngrok Forwarding address into text box and add the previously created server route to the end of the url.
+
+```bash
+http://xxxxxxxx.ngrok.io/helloworld 
+```
+
+<p align="center">
+  <img width="100%" height="100%" src="https://i.ibb.co/Bz8trVJ/arduinomkrgsm-commandscallbackurl.png"/>
+</p>
+
+Press Save.
+
+## Now it’s time to eat some chips
+
+Go back to the Arduino IDE and press upload.
+
+<p align="center">
+  <img width="100%" height="100%" src="https://i.ibb.co/8KdXbzW/Screen-Shot-2018-11-19-at-4-44-14-PM-copy.png"/>
+</p>
+
+Once uploaded, double check to see if the Command was sent properly using the Serial Monitor.
+
+- Navigate to Tools > Serial Monitor
+
+<p align="center">
+  <img width="100%" height="100%" src="https://i.ibb.co/0QbWCr3/arduinogsm-send.png"/>
+</p>
+
+Once the M2M Command is sent from the “2936” shortcode it is then routed to ngrok and onto the go application using the Commands Callback Url.
+
+<p align="center">
+  <img width="100%" height="100%" src="https://i.ibb.co/xgm7VxH/arduinogsm-ngrok2.png"/>
+</p>
+
+And finally the M2M Command reaches the server and the “helloworld.mp3”
+
+<p align="center">
+  <img width="100%" height="100%" src="https://i.ibb.co/zncZJMW/arduinogsm-go.png"/>
+</p>
+
+video
+
+Celltactular!
+
+## Continue to connect things
+You just sent your first M2M Command using magic.
+
+<p align="center">
+  <img width="100%" height="100%" src="https://i.ibb.co/S5Ssf9Y/arduinogsm-gif05.gif"/>
+</p>
+
+This M2M Command model is a foundational piece of how to use Twilio to send M2M Commands from a remote hardware device. With the integrated modem and software for sending AT commands as functions, it makes the Arduino MKR GSM 1400 an ideal piece for any IoT prototyping kit.
+
+If you are interested in learning about other pieces of hardware that can send M2M Commands check out the Wireless Machine-to-Machine Quickstarts.
+
+Feel free to reach out with any questions or curiousity. If you have any cool projects you have built or are planning on build drop me a line anytime.
+
+- Email: ckonopka@twilio.com
+- Github: cskonopka
+- Twitter: @cskonopka
+
+
+
+
