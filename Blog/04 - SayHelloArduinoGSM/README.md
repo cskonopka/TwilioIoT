@@ -27,7 +27,10 @@ The Arduino MKR GSM 1400 is a development board that combines the functionality 
 - [ngrok](http://ngrok.com/)
 
 ## Setting up the Twilio SIM
-[image]
+
+<p align="center">
+  <img width="47%" height="47%" src="https://i.ibb.co/F7qkFxm/Twilio-SIM.png"/>
+</p>
 
 Remove the Twilio SIM from it’s packaging. Next [register and activate your SIM](https://www.twilio.com/docs/wireless/tutorials/how-to-order-and-register-your-first-sim) in the Twilio Console.
 
@@ -89,7 +92,7 @@ Connect the board to the computer using a Micro-USB cable and you are geared up 
 ## Creating the Arduino sketch
 
 <p align="center">
-  <img width="50%" height="50%" src="https://i.ibb.co/MZ1B5GJ/arduinogsm-gif01.gif"/>
+  <img width="35%" height="35%" src="https://i.ibb.co/MZ1B5GJ/arduinogsm-gif01.gif"/>
 </p>
 
 In the Arduino IDE create a new Arduino sketch (File > New). A template is provided that look something like this.
@@ -194,7 +197,7 @@ Save the new sketch as "SayHelloArduinoGSM.ino". Before uploading the new sketch
 ## Spinning up an audio response server with Go and Beep
 
 <p align="center">
-  <img width="100%" height="100%" src="https://i.ibb.co/3hYQtSz/arduinogsm-gif02.gif"/>
+  <img width="47%" height="47%" src="https://i.ibb.co/3hYQtSz/arduinogsm-gif02.gif"/>
 </p>
 
 Create a new Go program named “SayHelloArduinoGSM.go” using the template below.
@@ -333,7 +336,7 @@ go run SayHelloArduinoGSM.go
 Currently the hardware and software pieces exist individually. ngrok will be used to bridge the gap.
 
 <p align="center">
-  <img width="100%" height="100%" src="https://i.ibb.co/FBY14WF/arduinogsm-gif04.gif"/>
+  <img width="47%" height="47%" src="https://i.ibb.co/FBY14WF/arduinogsm-gif04.gif"/>
 </p>
 
 When the SIM sends a M2M Command to Twilio a Webhook is sent to a user-defined url called the [Commands Callback Url](https://www.twilio.com/docs/wireless/api/sim#instance-post-parameters-optional). We will use ngrok to receive this Webhook and then route it to the server running on our own machine. To make the connection, start a new ngrok instance on the same port where the server is running.
@@ -396,7 +399,7 @@ Celltactular!
 You just sent your first M2M Command using magic.
 
 <p align="center">
-  <img width="100%" height="100%" src="https://i.ibb.co/S5Ssf9Y/arduinogsm-gif05.gif"/>
+  <img width="47%" height="47%" src="https://i.ibb.co/yYkv6zq/arduinogsm-gif05.gif/>
 </p>
 
 This M2M Command model is a foundational piece of how to use Twilio to send M2M Commands from a remote hardware device. With the integrated modem and software for sending AT commands as functions, it makes the Arduino MKR GSM 1400 an ideal piece for any IoT prototyping kit.
