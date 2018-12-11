@@ -28,9 +28,7 @@ The Arduino MKR GSM 1400 is a development board that combines the functionality 
 
 ## Setting up the Twilio SIM
 
-<p align="center">
-  <img width="47%" height="47%" src="https://i.ibb.co/F7qkFxm/Twilio-SIM.png"/>
-</p>
+
 
 Remove the Twilio SIM from it’s packaging. Next [register and activate your SIM](https://www.twilio.com/docs/wireless/tutorials/how-to-order-and-register-your-first-sim) in the Twilio Console.
 
