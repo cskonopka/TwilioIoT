@@ -310,7 +310,7 @@ func helloworld(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("incoming Command from Arduino MKR GSM 1400 : ", pwCommand)
 
 	fmt.Println("Playing audio file!")
-	f, err := os.Open("helloworld.mp3")
+	f, err := os.Open("hello.mp3")
 	if err != nil {
 		log.Fatal(err)
 	}
