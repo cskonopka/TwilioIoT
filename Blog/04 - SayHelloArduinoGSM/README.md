@@ -14,21 +14,23 @@ The Arduino MKR GSM 1400 is a development board that combines the functionality 
 
 ### Hardware Requirements
 
-- [Twilio Programmable Wireless SIM](https://www.amazon.com/Twilio-001-Starter-Pack-SIMs/dp/B07C8T3QDT)
-- [Arduino MKR GSM 1400](https://store.arduino.cc/usa/mkr-gsm-1400)
-- GSM Antenna
-- Micro USB cable
+* [Twilio Programmable Wireless SIM](https://www.amazon.com/Twilio-001-Starter-Pack-SIMs/dp/B07C8T3QDT)
+* [Arduino MKR GSM 1400](https://store.arduino.cc/usa/mkr-gsm-1400)
+* GSM Antenna
+* Micro USB cable
 
 ### Software Requirements
 
-- [Arduino IDE](https://www.arduino.cc/en/Main/Software)
-- [Go](https://golang.org/doc/install)
-- [Beep library for Go](https://github.com/faiface/beep)
-- [ngrok](http://ngrok.com/)
+* [Arduino IDE](https://www.arduino.cc/en/Main/Software)
+* [Go](https://golang.org/doc/install)
+* [Beep library for Go](https://github.com/faiface/beep)
+* [ngrok](http://ngrok.com/)
 
 ## Setting up the Twilio SIM
 
-
+<p align="center">
+  <img width="47%" height="47%" src="https://i.ibb.co/R4j1jkr/Twilio-SIM-width-500.png"/>
+</p>
 
 Remove the Twilio SIM from it’s packaging. Next [register and activate your SIM](https://www.twilio.com/docs/wireless/tutorials/how-to-order-and-register-your-first-sim) in the Twilio Console.
 
@@ -370,7 +372,7 @@ Go back to the Arduino IDE and press upload.
 
 Once uploaded, double check to see if the Command was sent properly using the Serial Monitor.
 
-- Navigate to Tools > Serial Monitor
+* Navigate to Tools > Serial Monitor
 
 <p align="center">
   <img width="100%" height="100%" src="https://i.ibb.co/0QbWCr3/arduinogsm-send.png"/>
@@ -405,6 +407,6 @@ If you are interested in learning about other pieces of hardware that can send M
 
 Feel free to reach out with any questions or curiousity. If you have any cool projects you have built or are planning on build drop me a line anytime.
 
-- Email: ckonopka@twilio.com
-- Github: cskonopka
-- Twitter: @cskonopka
+* Email: ckonopka@twilio.com
+* Github: cskonopka
+* Twitter: @cskonopka
