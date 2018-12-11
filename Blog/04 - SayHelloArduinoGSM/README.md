@@ -265,7 +265,7 @@ The data from the body can be extracted using the [PostFormValue()](https://gola
 And to add a little spice let’s at some Beep code to play an audio file through your system’s audio when the Command successfully reaches the server.
 
 ```go
-	f, err := os.Open("hello.mp3")
+	f, err := os.Open("helloworld.mp3")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -310,7 +310,7 @@ func helloworld(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("incoming Command from Arduino MKR GSM 1400 : ", pwCommand)
 
 	fmt.Println("Playing audio file!")
-	f, err := os.Open("hello.mp3")
+	f, err := os.Open("helloworld.mp3")
 	if err != nil {
 		log.Fatal(err)
 	}
