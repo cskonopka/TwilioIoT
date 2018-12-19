@@ -1,3 +1,7 @@
 {
-    "workbench.colorTheme": "Tomorrow Night Blue"
+    "workbench.colorTheme": "Tomorrow Night Blue",
+    "files.autoSave": "afterDelay",
+    "editor.fontSize": 10,
+    "editor.tabSize": 2,
+    "editor.wordWrap": "on"
 }

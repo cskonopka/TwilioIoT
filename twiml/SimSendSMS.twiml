@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+	<Message from="YOUR_PHONE_NUMBER" to="{{To}}">{{Body}}</Message>
+</Response> 
