@@ -1,6 +1,6 @@
-# TwilioProgrammableWireless
+# TwilioIoT
 <p align="center">
-  <img width="70%" height="70%" src="https://image.ibb.co/m7KOA0/Twilio-Io-T.jpg"/>
+  <img width="25%" height="25%" src="https://i.ibb.co/q5pcHPb/DOl-Grx52-400x400.jpg"/>
 </p>
 
 ### Type of Projects
