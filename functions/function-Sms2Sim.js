@@ -14,7 +14,7 @@ exports.handler = function(context, event, callback) {
     var client = context.getTwilioClient()
 
     console.log(event.Body);
-    client.wireless.commands.create({sim: 'Adafruit3G', command: event.Body})
+    client.wireless.commands.create({sim: 'SIM_NAME', command: event.Body})
 
    function cb() {
        callback(null, "Command Sent");
