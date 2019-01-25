@@ -1,0 +1,334 @@
+body{
+    margin:0;
+    padding:0;
+    /*overflow: hidden;*/
+    overflow-y: scroll;
+    font-family: Raleway;
+}
+
+header{
+    background: #2b303b;
+    height: 50px;
+    width:100%;
+    display: flex;
+    color:#fff;
+}
+
+.m2m-logo{
+    height:60px;
+    border-radius: 8px;
+    float: left;
+    margin-right: 15px;
+}
+
+section{
+    padding: 15px;
+    width:calc(100% - 45px);
+}
+.row-centered {
+    text-align:center;
+}
+
+.logo img{
+    height: 35px;
+    padding: 6px;
+    margin-left: 20px;
+}
+
+
+.m2m-commands{
+    border:1px solid #aeaeae;
+    border-radius: 10px;
+    /*width:50%;*/
+    width:100%;
+    margin: 0 2%;
+    overflow: hidden;
+}
+
+.post{
+    padding-top:10px;
+}
+
+.m2m-commands .header{
+    display: flex;
+    padding: 5px 20px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.m2m-commands .header .text{
+    padding-left:15px;
+    line-height: 25px;
+}
+
+.m2m-commands .command{
+    display: flex;
+    border-bottom:1px solid #eaeaea;
+    padding: 4px;
+}
+
+
+.m2m-commands form{
+    margin-bottom: 0px;
+}
+
+.m2m-commands .command-form{
+    display: flex;
+    padding: 6px;
+    border-bottom:1px solid #eaeaea;
+}
+
+.command-form .left-side{
+    flex: 5;
+    display: flex;
+    flex-direction: column;
+    padding-right: 5px;
+}
+
+.command-form .left-side .row{
+    flex: 0 auto;
+    display: flex;
+    align-content: center;
+}
+
+.command-form .left-side .row input{
+    height: 32px;
+    width: 50%;
+}
+
+.command-form .left-side .row textarea{
+    height: 42px;
+    margin-top:8px;
+}
+
+.command-form .right-side{
+    flex:1;
+    display: flex;
+    justify-content: center;
+}
+
+.command-form .right-side button{
+    white-space: pre-wrap;
+}
+
+.command-form textarea{
+    width:100%;
+}
+
+.button-secondary {
+    background: rgb(66, 184, 221); /* this is a light blue */
+    color: white;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+div#top-to-bottom {
+    position: absolute;
+    width:50px;
+    text-align: left;
+    float: left;
+    -webkit-transform: scaleY(-1);
+    transform: scaleY(-1);
+}
+div#top-to-bottom > div {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    float: right;
+    display: block;
+    -webkit-transform: scaleY(-1);
+    transform: scaleY(-1);
+}
+
+@media(max-width:980px){
+    .m2m-commands{
+        width: 100%;  
+    }
+
+    .m2m-commands button, .m2m-commands textarea{
+        width:100%;
+        height: 30px;
+        margin-top: 5px;
+    }
+
+    .m2m-commands .command-form{
+        flex-direction: column;
+        height: 120px;
+        display: flex;
+    }
+
+
+    .m2m-commands .command-form .right-side{
+        flex:3;
+        padding-right: 5px;
+    }
+
+    h2{
+        font-size: 20px;
+    }
+
+    .post iframe{
+        width: 100% !important;
+        height: 250px !important;
+    }
+}
+
+.m2m-commands .user-icon{
+    flex: 0 80px;
+    display: flex;
+    justify-content: center;
+}
+
+.m2m-commands .user-icon img{
+    height:90px;
+}
+
+.m2m-commands .command-info{
+    flex:5;
+
+}
+
+.centerdiv { margin: auto; max-width: 500px;}
+
+.icon { margin: auto; max-width: auto;}
+
+.imgstyle{
+      height: 50%;
+      max-width: auto;
+}
+
+.m2m-commands .command-info .row{
+    display: flex;
+}
+
+.m2m-commands .command-info .name{
+      padding-top: 4px;
+    color: #000;
+    margin-left: 15px;
+    font-size: 24px;
+}
+
+.m2m-commands .command-info .email{
+    color: #000;
+    margin-left: 10px;
+}
+
+.m2m-commands .command-info .text{
+    font-size: 18px;
+    margin-left:13px;
+    margin-top: 0px;
+    padding-bottom: 5px;
+}
+
+/* CSS Code for Animating command Element */
+.m2m-commands .command{
+  animation: animationFrames ease 1s;
+  animation-iteration-count: 1;
+  transform-origin: 50% 50%;
+  animation-fill-mode:forwards; /*when the spec is finished*/
+  -webkit-animation: animationFrames ease 1s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-transform-origin: 50% 50%;
+  -webkit-animation-fill-mode:forwards; /*Chrome 16+, Safari 4+*/ 
+  -moz-animation: animationFrames ease 1s;
+  -moz-animation-iteration-count: 1;
+  -moz-transform-origin: 50% 50%;
+  -moz-animation-fill-mode:forwards; /*FF 5+*/
+  -o-animation: animationFrames ease 1s;
+  -o-animation-iteration-count: 1;
+  -o-transform-origin: 50% 50%;
+  -o-animation-fill-mode:forwards; /*Not implemented yet*/
+  -ms-animation: animationFrames ease 1s;
+  -ms-animation-iteration-count: 1;
+  -ms-transform-origin: 50% 50%;
+  -ms-animation-fill-mode:forwards; /*IE 10+*/
+}
+
+@keyframes animationFrames{
+  0% {
+    opacity:0;
+    transform:  translate(-1500px,0px)  ;
+  }
+  60% {
+    opacity:1;
+    transform:  translate(30px,0px)  ;
+  }
+  80% {
+    transform:  translate(-10px,0px)  ;
+  }
+  100% {
+    opacity:1;
+    transform:  translate(0px,0px)  ;
+  }
+}
+
+@-moz-keyframes animationFrames{
+  0% {
+    opacity:0;
+    -moz-transform:  translate(-1500px,0px)  ;
+  }
+  60% {
+    opacity:1;
+    -moz-transform:  translate(30px,0px)  ;
+  }
+  80% {
+    -moz-transform:  translate(-10px,0px)  ;
+  }
+  100% {
+    opacity:1;
+    -moz-transform:  translate(0px,0px)  ;
+  }
+}
+
+@-webkit-keyframes animationFrames {
+  0% {
+    opacity:0;
+    -webkit-transform:  translate(-1500px,0px)  ;
+  }
+  60% {
+    opacity:1;
+    -webkit-transform:  translate(30px,0px)  ;
+  }
+  80% {
+    -webkit-transform:  translate(-10px,0px)  ;
+  }
+  100% {
+    opacity:1;
+    -webkit-transform:  translate(0px,0px)  ;
+  }
+}
+
+@-o-keyframes animationFrames {
+  0% {
+    opacity:0;
+    -o-transform:  translate(-1500px,0px)  ;
+  }
+  60% {
+    opacity:1;
+    -o-transform:  translate(30px,0px)  ;
+  }
+  80% {
+    -o-transform:  translate(-10px,0px)  ;
+  }
+  100% {
+    opacity:1;
+    -o-transform:  translate(0px,0px)  ;
+  }
+}
+
+@-ms-keyframes animationFrames {
+  0% {
+    opacity:0;
+    -ms-transform:  translate(-1500px,0px)  ;
+  }
+  60% {
+    opacity:1;
+    -ms-transform:  translate(30px,0px)  ;
+  }
+  80% {
+    -ms-transform:  translate(-10px,0px)  ;
+  }
+  100% {
+    opacity:1;
+    -ms-transform:  translate(0px,0px)  ;
+  }
+}
