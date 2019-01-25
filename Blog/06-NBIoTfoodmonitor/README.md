@@ -7,7 +7,7 @@
 [Containers](https://en.wikipedia.org/wiki/Intermodal_container) are one of the many ways food is shipped to vendors around the globe. The food encounters various types of environmental changes before it reaches the consumer. These environmental changes could impact the quality of the product during the shipment. 
 
 <p align="center">
-  <img width="40%" height="40%" src="https://media.giphy.com/media/huWcRHuN4LCQE/giphy.gif"/>
+  <img width="40%" height="40%" src="https://i.ibb.co/fF0Gscn/Twiolio-Io-TNBFood01.gif"/>
 </p>
 
 Using *[Twilio’s Alfa Developer Kit](https://www.twilio.com/docs/wireless/quickstart/alfa-developer-kit)* that was distributed at [SIGNAL 2018](https://www.twilio.com/signal) we will create a full-stack IoT prototype using the [U.S. T-Mobile NB-IoT](https://www.twilio.com/docs/wireless/nb) network. The rollout of *[NB-IoT](https://www.twilio.com/wireless/narrowband)* provides a new way to create and connect devices with a lifespan of 10 years in the wild. This device will be used to track the [temperature/humidity](http://wiki.seeedstudio.com/Grove-Temperature_and_Humidity_Sensor_Pro/) of a food shipment and infrequently send small packets of data to update a web application.
@@ -35,21 +35,29 @@ If you are unfamiliar with the Alfa developer kit check out how “Pioneer NB-Io
 
 First take out the required components from the Alfa developer kit. 
 
-
+<p align="center">
+  <img width="40%" height="40%" src="https://i.ibb.co/jwvTgqL/Twilio-Timeline-Hardware.jpg"/>
+</p>
 
 Attach the Seeed Studio Temperature and Humidity DHT11 sensor.
 
-
+<p align="center">
+  <img width="40%" height="40%" src="https://i.ibb.co/pjtXV2B/Twilio-Timeline-Hardware-Setup.jpg"/>
+</p>
 
 Open the Arduino IDE. This developer environment is used to program the developer board. 
 
 We will need to download the Grove Temperature and Humidity Sensor library by Seeed Studio to program the DHT11 sensor. Navigate to Sketch > Include Library Manage Libraries.
 
-
+<p align="center">
+  <img width="40%" height="40%" src="https://i.ibb.co/KG78Dv9/Twilio-Timeline-Manage-Libraries.png"/>
+</p>
 
 Search for and install the Grove Temperature and Humidity Sensor library by Seeed Studio. 
 
-
+<p align="center">
+  <img width="40%" height="40%" src="https://i.ibb.co/q9vsQmM/Twilio-Timeline-Library-DHT11.png"/>
+</p>
 
 After the library is installed we are ready to modify some code. Before we can do this we have to put the developer board into Bootloader mode. This step is necessary for uploading new code to the board. Once it is in Bootloader mode go back to the Arduino IDE.
 
@@ -60,9 +68,12 @@ After the library is installed we are ready to modify some code. Before we can d
 </p>
 
 Open the “Hello World” example in the Breakout SDK Library folder.
-Navigate to File > Examples > Breakout Arduino Library > Hello World 
 
+*Navigate to File > Examples > Breakout Arduino Library > Hello World 
 
+<p align="center">
+  <img width="40%" height="40%" src="https://i.ibb.co/q5WNcHx/Twilio-Timeline-Hello-World.png"/>
+</p>
 
 At the top of the file, underneath #include <stdio.h>, add the DHT11 sensor header file.
 
@@ -126,6 +137,10 @@ For testing purposes, there are two other things we should do 1) add the Breakou
 
 Let’s start by replacing the psk_key. Each development board has a unique SIM ICCID and Pre-Shared Key (psk). The psk for the board needs to be copied into the HelloWorld.ino sketch to the T-Mobile Narrowband network. Follow the instructions below to find your pre-shared key:
 
+<p align="center">
+  <img width="40%" height="40%" src="https://i.ibb.co/vP73x86/QEc-QMQGa-Obj-Md-Hx-V7ybgj4-Ffps-t7k-JM534-Q47bv-CQBt-E-width-800.png"/>
+</p>
+
 Inside the HelloWorld.ino sketch find the line *psk_key
 
 1. Navigate to Programmable Wireless in the Twilio Console
@@ -144,22 +159,31 @@ breakout->setPollingInterval(1 * 60);
 ```
 With the board still in Bootloader mode, upload the code to the developer board. 
 
-
+<p align="center">
+  <img width="40%" height="40%" src="https://i.ibb.co/v4SBQnr/Twilio-Timeline-Upload.png"/>
+</p>
 
 The output of the uploading process should look something like this.
 
-
+<p align="center">
+  <img width="40%" height="40%" src="https://i.ibb.co/rwccdMF/Twilio-Io-T-NBFood-Upload.gif"/>
+</p>
 
 Press the RST button on the board to reset the board and start the new program. 
 
-
+<p align="center">
+  <img width="40%" height="40%" src="https://i.ibb.co/zZyVHRf/Twilio-Timeline-RST.jpg"/>
+</p>
 
 Open the Serial Monitor and the registration process will start. 
 
-
+[image]
 
 After a short period of time, the developer board will connect to the Breakout SDK.
 
+<p align="center">
+  <img width="40%" height="40%" src="https://i.ibb.co/ydpLM6z/Twilio-Timeline-Breakout.png"/>
+</p>
 
 Once connected to the Breakout SDK, the DHT11 will initialize and the temperature and humidity data will start to flow in the Serial Monitor. 
 
@@ -301,27 +325,39 @@ Now that the data is being sent from board using the Breakout SDK, we need a mec
 
 Once the signup process is complete, Pusher will redirect to the project Dashboard. At that point observe the menu on the left side of the page.
 
-
+<p align="center">
+  <img width="40%" height="40%" src="https://i.ibb.co/2jS3ZhR/Twilio-Io-T-Timeline-Create-App.png"/>
+</p>
 
 Click Create new app to create a new Channels application. Provide a name for the app and select a cluster where the application will be hosted. Select Javascript as the front-end tech and Node.js as the back-end tech. After filling out the necessary details press Create my app.
 
-
+<p align="center">
+  <img width="40%" height="40%" src="https://i.ibb.co/0MWvVyF/Twilio-Io-T-Timeline-App-Details.png"/>
+</p>
 
 Pusher will redirect to the Dashboard once the app is created.
 
-
+<p align="center">
+  <img width="40%" height="40%" src="https://i.ibb.co/FsTNYmP/Twilio-Io-T-Timeline-App-Overview.png"/>
+</p>
 
 Press the Channels Apps in the navigation bar on the left.
 
-
+<p align="center">
+  <img width="40%" height="40%" src="https://i.ibb.co/LxT2fx5/Twilio-Io-T-Timeline-Create-Channel.png"/>
+</p>
 
 A new menu will appear with all of Channels apps associated with the account. Click the application we just created to go to the application’s dashboard.
 
-
+<p align="center">
+  <img width="40%" height="40%" src="https://i.ibb.co/nkNg16S/Twilio-Io-T-Timeline-Dashboard.png"/>
+</p>
 
 Once at the Channels dashboard we need to copy the Pusher credentials. They can be found at the bottom of the page. These credentials will be used in a future step.
 
-
+<p align="center">
+  <img width="40%" height="40%" src="https://i.ibb.co/31zHzxS/Twilio-Io-T-Timeline-Credentials.png"/>
+</p>
 
 ## Create the server and listen for messages
 
@@ -407,7 +443,9 @@ Start the server.
 ```javascript
 node server.js
 ```
-
+<p align="center">
+  <img width="40%" height="40%" src="https://i.ibb.co/Dbr5rvz/Twilio-Io-T-Timeline-Node.png"/>
+</p>
 
 ## Creating an interactive client
 
@@ -589,7 +627,7 @@ The stylesheet used for the web app, style.css, can be found in the TwilioIoT Gi
 
 Connecting the Breakout SDK to the Node server is the last step needed to connect all of the applications elements. 
 
-When the device sends a machine-to-machine Command to Twilio a webhook is sent to the Commands Callback Url. Ngrok will be used to receive the webhook and  route it to the server running locally. 
+When the device sends a machine-to-machine Command to Twilio a webhook is sent to the [Commands Callback Url](https://www.twilio.com/docs/wireless/api/sim#instance-post-parameters-optional). Ngrok will be used to receive the webhook and  route it to the server running locally. 
 
 Start a new ngrok instance on the same port where the server is running. 
 
@@ -601,18 +639,22 @@ Copy the Forwarding url that was created with ngrok. Note that the Forwarding ur
 http://3c2a36e0.ngrok.io
 ```
 
-
+<p align="center">
+  <img width="40%" height="40%" src="https://i.ibb.co/f4xGzDn/Twilio-Io-T-Timeline-Ngrok.png"/>
+</p>
 
 Next we want to add Forwarding url to the Commands Callback Url. 
 
-Navigate to Programmable Wireless in the Twilio console
-Locate the Narrowband SIM that you previously registered under SIM
-Under the Configure tab you will find the Commands Callback Url
-Paste the ngrok Forwarding address into text box and add the previously created server route to the end of the url.
+1. [Navigate to Programmable Wireless in the Twilio console](https://www.twilio.com/console/wireless/simshttps://www.twilio.com/console/wireless/sims)
+2. Locate the Narrowband SIM that you previously registered under SIM
+3. Under the Configure tab you will find the Commands Callback Url
+4. Paste the ngrok Forwarding address into text box and add the previously created server route to the end of the url.
 
 ``` http://3c2a36e0.ngrok.io/fromSIM ```
 
-
+<p align="center">
+  <img width="40%" height="40%" src="https://i.ibb.co/g3gsQsC/Twilio-Io-T-Timeline-Commands-Callback-Url.png"/>
+</p>
 
 Press save. 
 
@@ -621,20 +663,26 @@ We are connected, let’s test it out!
 ## Time to check the shipment
 
 <p align="center">
-  <img width="40%" height="40%" src="https://media.giphy.com/media/d31w24psGYeekCZy/giphy.gif"/>
+  <img width="40%" height="40%" src="https://i.ibb.co/ZWPBwg9/Twiolio-Io-T-NBFood-09.gif"/>
 </p>
 
 Open a web browser and type in localhost:9050.
- 
 
+<p align="center">
+  <img width="40%" height="40%" src="https://i.ibb.co/XJgkJgD/Twilio-Io-T-Timeline-Browser.png"/>
+</p>
 
 Watch the machine-to-machine Commands reach the Node server.
 
-
+<p align="center">
+  <img width="40%" height="40%" src="https://i.ibb.co/tJWPYmb/Twilio-Io-T-Timeline-Node-Received.png"/>
+</p>
 
 And this is what it looks like when the data reaches the web browser.
 
-
+<p align="center">
+  <img width="40%" height="40%" src="https://i.ibb.co/ZGXwQBk/Twilio-Io-T-NBfood-Command-Received.png"/>
+</p>
 
 You just create a full-stack IoT prototype!
 
@@ -644,17 +692,16 @@ You just create a full-stack IoT prototype!
 
 ## Prototyping the future of IoT
 
-IoT is not just software, hardware, or even cloud technology. It is about interconnectivity with intent. Developing experimental prototypes like this “smart container app” is how an individual could bring their idea and create an MVP. After several iterations it could potentially become a production ready device. 
+IoT is not just software, hardware, or even cloud technology. It is about interconnectivity with intent. Developing experimental prototypes like this “smart container app” is how an individual could bring their idea and create an [PoC](https://en.wikipedia.org/wiki/Proof_of_concept). After several iterations it could potentially become a production ready device. 
 
 Environment tracking could be applied to several types of industries such as:
-Smart Buildings
-Precision agriculture
-Smart Manufacturing
-This project, along with other projects, can be found on the TwilioIoT GitHub. If you are interested in learning about other pieces of hardware that can send machine-to-machine (M2M) Commands with TwilioIoT check out the Wireless Machine-to-Machine Quickstarts. 
+* [Smart Buildings](https://en.wikipedia.org/wiki/Mobile_asset_management)
+* [Precision agriculture](https://en.wikipedia.org/wiki/Smart_device)
+* [Smart Manufacturing](https://en.wikipedia.org/wiki/Industry_4.0)
 
+This project, along with other projects, can be found on the [TwilioIoT GitHub](https://github.com/cskonopka/TwilioIoT). If you are interested in learning about other pieces of hardware that can send machine-to-machine (M2M) Commands with TwilioIoT check out the [Twilio Machine-to-Machine Quickstarts](https://www.twilio.com/docs/wireless). 
 
-https://media.giphy.com/media/2mUE54iv9wPJu/giphy.gif
 Feel free to reach out with any questions or curiousity. Drop me a line if you have any cool IoT projects.
-Email: ckonopka@twilio.com
-Github: cskonopka
-Twitter: @cskonopka
+* Email: ckonopka@twilio.com
+* Github: [cskonopka](http://github.com/cskonopka)
+* Twitter: [@cskonopka](http://twitter.com/cskonopka)
