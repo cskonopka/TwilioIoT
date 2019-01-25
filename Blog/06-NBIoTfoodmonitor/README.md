@@ -12,26 +12,24 @@
 
 Using *[Twilio’s Alfa Developer Kit](https://www.twilio.com/docs/wireless/quickstart/alfa-developer-kit)* that was distributed at [SIGNAL 2018](https://www.twilio.com/signal) we will create a full-stack IoT prototype using the [U.S. T-Mobile NB-IoT](https://www.twilio.com/docs/wireless/nb) network. The rollout of *[NB-IoT](https://www.twilio.com/wireless/narrowband)* provides a new way to create and connect devices with a lifespan of 10 years in the wild. This device will be used to track the [temperature/humidity](http://wiki.seeedstudio.com/Grove-Temperature_and_Humidity_Sensor_Pro/) of a food shipment and infrequently send small packets of data to update a web application.
 
-<p align="center">
-  <img width="40%" height="40%" src="https://www.youtube.com/watch?v=N4ZKnuvLjPU"/>
-</p>
+[![Create an NB-IoT environmental monitor for food shipments with TwilioIoT, Node and Pusher](http://img.youtube.com/vi/N4ZKnuvLjPU/0.jpg)](https://www.youtube.com/watch?v=N4ZKnuvLjPU "Create an NB-IoT environmental monitor for food shipments with TwilioIoT, Node and Pusher")
 
 ### Hardware Requirements
-*  Twilio Developer Kit for T-Mobile Narrowband
-* Twilio Narrowband SIM
+* [Twilio Developer Kit for T-Mobile Narrowband](https://www.twilio.com/docs/wireless/quickstart/alfa-developer-kit)
+* [Twilio Narrowband SIM](https://www.twilio.com/wireless/narrowband)
 * LTE Antenna
 * Micro USB cable
 * Lithium Battery
-* Seeed Studio Temperature and Humidity sensor
+* [Seeed Studio Temperature and Humidity sensor](http://wiki.seeedstudio.com/Grove-TemperatureAndHumidity_Sensor/)
 
 ### Software Requirements
-* Arduino IDE
-* Twilio Breakout SDK
-* Node.js
-* Pusher
+* [Arduino IDE](https://www.arduino.cc/en/Main/Software)
+* [Twilio Breakout SDK](https://github.com/twilio/Breakout_Arduino_Library/tree/master/src/BreakoutSDK)
+* [Node.js](https://nodejs.org/en/)
+* [Pusher](http://pusher.com/)
 
 ## Prepare the hardware
-If you are unfamiliar with the Alfa developer kit check out how “Pioneer NB-IoT with Twilio’s Alfa Development Kit”. This is a great primer for understanding how to connect to T-Mobile’s NB-IoT network with Twilio.
+If you are unfamiliar with the Alfa developer kit check out how [“Pioneer NB-IoT with Twilio’s Alfa Development Kit”](https://www.twilio.com/blog/pioneer-nb-iot-with-twilios-alfa-development-kit). This is a great primer for understanding how to connect to T-Mobile’s NB-IoT network with Twilio.
 
 First take out the required components from the Alfa developer kit. 
 
@@ -39,7 +37,7 @@ First take out the required components from the Alfa developer kit.
   <img width="40%" height="40%" src="https://i.ibb.co/jwvTgqL/Twilio-Timeline-Hardware.jpg"/>
 </p>
 
-Attach the Seeed Studio Temperature and Humidity DHT11 sensor.
+Attach the [Seeed Studio](https://www.seeedstudio.com/) Temperature and Humidity [DHT11](http://wiki.seeedstudio.com/Grove-TemperatureAndHumidity_Sensor/) sensor.
 
 <p align="center">
   <img width="40%" height="40%" src="https://i.ibb.co/pjtXV2B/Twilio-Timeline-Hardware-Setup.jpg"/>
@@ -47,7 +45,9 @@ Attach the Seeed Studio Temperature and Humidity DHT11 sensor.
 
 Open the Arduino IDE. This developer environment is used to program the developer board. 
 
-We will need to download the Grove Temperature and Humidity Sensor library by Seeed Studio to program the DHT11 sensor. Navigate to Sketch > Include Library Manage Libraries.
+We will need to download the Grove Temperature and Humidity Sensor library by [Seeed Studio](https://github.com/Seeed-Studio/Grove_Temperature_And_Humidity_Sensor) to program the DHT11 sensor. 
+
+* Navigate to Sketch > Include Library Manage Libraries.
 
 <p align="center">
   <img width="40%" height="40%" src="https://i.ibb.co/KG78Dv9/Twilio-Timeline-Manage-Libraries.png"/>
@@ -59,7 +59,7 @@ Search for and install the Grove Temperature and Humidity Sensor library by Seee
   <img width="40%" height="40%" src="https://i.ibb.co/q9vsQmM/Twilio-Timeline-Library-DHT11.png"/>
 </p>
 
-After the library is installed we are ready to modify some code. Before we can do this we have to put the developer board into Bootloader mode. This step is necessary for uploading new code to the board. Once it is in Bootloader mode go back to the Arduino IDE.
+After the library is installed we are ready to modify some code. Before we can do this we have to put the developer board into [Bootloader mode](https://www.twilio.com/docs/wireless/quickstart/m2m-commands-wiolte#enter-bootloader-mode). This step is necessary for uploading new code to the board. Once it is in Bootloader mode go back to the Arduino IDE.
 
 ## Hack and upload
 
@@ -67,7 +67,7 @@ After the library is installed we are ready to modify some code. Before we can d
   <img width="40%" height="40%" src="https://media.giphy.com/media/ZvLUtG6BZkBi0/giphy.gif"/>
 </p>
 
-Open the “Hello World” example in the Breakout SDK Library folder.
+Open the “Hello World” example in the [Breakout SDK](https://github.com/twilio/Breakout_Arduino_Library) Library folder.
 
 *Navigate to File > Examples > Breakout Arduino Library > Hello World 
 
@@ -135,28 +135,30 @@ This variable is then used point to the string and send a text command over the 
 
 For testing purposes, there are two other things we should do 1) add the Breakout SDK psk_key and 2) alter the interval time for a more responsive example.
 
-Let’s start by replacing the psk_key. Each development board has a unique SIM ICCID and Pre-Shared Key (psk). The psk for the board needs to be copied into the HelloWorld.ino sketch to the T-Mobile Narrowband network. Follow the instructions below to find your pre-shared key:
+Let’s start by replacing the psk_key. Each development board has a unique [SIM ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) and Pre-Shared Key (psk). The psk for the board needs to be copied into the HelloWorld.ino sketch to the T-Mobile Narrowband network. Follow the instructions below to find your pre-shared key:
 
 <p align="center">
   <img width="40%" height="40%" src="https://i.ibb.co/vP73x86/QEc-QMQGa-Obj-Md-Hx-V7ybgj4-Ffps-t7k-JM534-Q47bv-CQBt-E-width-800.png"/>
 </p>
 
-Inside the HelloWorld.ino sketch find the line *psk_key
+Inside the HelloWorld.ino sketch find the line *psk_key.
 
 1. Navigate to Programmable Wireless in the Twilio Console
 2. Click SIMs
 3. Find the Narrowband SIM that was previously registered
 4. Under the tab Breakout SDK find Credentials
-5.Where it says Pre-Shared Key (psk) click the eye logo to reveal the key
+5. Where it says Pre-Shared Key (psk) click the eye logo to reveal the key
 6. Copy the psk
 7. Paste your psk into the HelloWorld.ino file in the code above
 
 Next, change the setPollingInterval. This determines how often the Breakout SDK will poll for a new Command. Find the line breakout->setPollingInterval.
 
-Change the ‘setPollingInterval’ interval from 10 to 1. This will change the polling time from 10 minutes to 1 minute.
+Change the ‘setPollingInterval’ interval from 10 to 1. This will change the [polling](https://www.twilio.com/docs/wireless/nb#what-is-polling) time from 10 minutes to 1 minute.
+
 ``` arduino
 breakout->setPollingInterval(1 * 60);
 ```
+
 With the board still in Bootloader mode, upload the code to the developer board. 
 
 <p align="center">
@@ -166,26 +168,32 @@ With the board still in Bootloader mode, upload the code to the developer board.
 The output of the uploading process should look something like this.
 
 <p align="center">
-  <img width="40%" height="40%" src="https://i.ibb.co/rwccdMF/Twilio-Io-T-NBFood-Upload.gif"/>
+  <img width="80%" height="80%" src="https://i.ibb.co/rwccdMF/Twilio-Io-T-NBFood-Upload.gif"/>
 </p>
 
 Press the RST button on the board to reset the board and start the new program. 
 
 <p align="center">
-  <img width="40%" height="40%" src="https://i.ibb.co/zZyVHRf/Twilio-Timeline-RST.jpg"/>
+  <img width="60%" height="60%" src="https://i.ibb.co/zZyVHRf/Twilio-Timeline-RST.jpg"/>
 </p>
 
 Open the Serial Monitor and the registration process will start. 
 
-[image]
+<p align="center">
+  <img width="80%" height="80%" src="https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/hFOkpgeJwhNCYjDWpHEjM2dRQglzP1KJ3ijL_rs5YwRZCY.width-500.png"/>
+</p>
 
 After a short period of time, the developer board will connect to the Breakout SDK.
 
 <p align="center">
-  <img width="40%" height="40%" src="https://i.ibb.co/ydpLM6z/Twilio-Timeline-Breakout.png"/>
+  <img width="80%" height="80%" src="https://i.ibb.co/ydpLM6z/Twilio-Timeline-Breakout.png"/>
 </p>
 
 Once connected to the Breakout SDK, the DHT11 will initialize and the temperature and humidity data will start to flow in the Serial Monitor. 
+
+<p align="center">
+  <img width="80%" height="80%" src="https://i.ibb.co/3znrpbQ/Twilio-Io-T-NBfood-Command-Sent.png"/>
+</p>
 
 Below is the completed program as a reference	. This code can also be found on the TwilioIoT GitHub.
 ```arduino
@@ -275,9 +283,9 @@ void loop() {
   <img width="40%" height="40%" src="https://media.giphy.com/media/Ro2MgOxH9iaVG/giphy.gif"/>
 </p>
 
-Getting more information on each shipment would provide more insight about the freshness of the food during its journey. The data from inside the shipment is sent over the NB-IoT network using the Breakout SDK. The next step is to create an application that can receive the data and use Pusher to update a web page. The completed code can be found on GitHub[link].
+Getting more information on each shipment would provide more insight about the freshness of the food during its journey. The data from inside the shipment is sent over the NB-IoT network using the [Breakout SDK](https://github.com/twilio/Breakout_Arduino_Library). The next step is to create an application that can receive the data and use Pusher to update a web page. The completed code can be found on GitHub.
 
-Create a new folder in the directory and then create a new Node application using npm.
+Create a new folder in the directory and then create a new Node application using [npm](https://www.npmjs.com/).
 
 ``` node
 npm init
@@ -318,15 +326,15 @@ Great! Now we’re cooking.
 ## How do you connect the server with the client?
 
 <p align="center">
-  <img width="40%" height="40%" src="https://media.giphy.com/media/m12EDnP8xGLy8/giphy.gif"/>
+  <img width="40%" height="40%" src="https://i.ibb.co/6NnPtdH/Twiolio-Io-TNBFood04.gif"/>
 </p>
 
-Now that the data is being sent from board using the Breakout SDK, we need a mechanism to push the data received by the server to the client. For this we will use the Pusher API. This API makes it easier for developers to integrate bi-directional communication via WebSockets for web and mobile applications. Go to Pusher and sign up for a free account.
+Now that the data is being sent from board using the Breakout SDK, we need a mechanism to push the data received by the server to the client. For this we will use the [Pusher](https://dashboard.pusher.com/accounts/sign_up) API. This API makes it easier for developers to integrate bi-directional communication via [WebSockets](https://en.wikipedia.org/wiki/WebSocket) for web and mobile applications. Go to Pusher and [sign up](https://dashboard.pusher.com/accounts/sign_up) for a free account.
 
 Once the signup process is complete, Pusher will redirect to the project Dashboard. At that point observe the menu on the left side of the page.
 
 <p align="center">
-  <img width="40%" height="40%" src="https://i.ibb.co/2jS3ZhR/Twilio-Io-T-Timeline-Create-App.png"/>
+  <img width="10%" height="10%" src="https://i.ibb.co/2jS3ZhR/Twilio-Io-T-Timeline-Create-App.png"/>
 </p>
 
 Click Create new app to create a new Channels application. Provide a name for the app and select a cluster where the application will be hosted. Select Javascript as the front-end tech and Node.js as the back-end tech. After filling out the necessary details press Create my app.
@@ -360,10 +368,6 @@ Once at the Channels dashboard we need to copy the Pusher credentials. They can 
 </p>
 
 ## Create the server and listen for messages
-
-<p align="center">
-  <img width="40%" height="40%" src="https://media.giphy.com/media/l41lFj8afmWIo3yW4/giphy.gif"/>
-</p>
 
 The server is the connective tissue between the outside world and the web. All of the Commands being sent over the NB-IoT network will be received using Node and Express that we will create together. Within the server, we will create a specific route to receive the data and pass to the client using Pusher. 
 
@@ -426,7 +430,7 @@ app.post('/fromSIM', function(req, res) {
 });
 ``` 
 
-Export the application using module.exports.
+Export the application using [module.exports](https://nodejs.org/api/modules.html#modules_module_exports).
 ``` 
 module.exports = app;
 ```
@@ -462,7 +466,7 @@ mkdir assets
 touch app.js
 ```
 
-Open app.js and add a Immediately-Invoked Function Expression.
+Open app.js and add a [Immediately-Invoked Function Expression](https://developer.mozilla.org/en-US/docs/Glossary/IIFE).
 
 ``` javascript
 (function() {
@@ -620,10 +624,6 @@ This section of HTML is dynamically altered by new data readings from the Breako
 The stylesheet used for the web app, style.css, can be found in the TwilioIoT GitHub repository for this post.
 
 ## Connect the two worlds with a webhook
-
-<p align="center">
-  <img width="40%" height="40%" src="https://media.giphy.com/media/gw3IWyGkC0rsazTi/giphy.gif"/>
-</p>
 
 Connecting the Breakout SDK to the Node server is the last step needed to connect all of the applications elements. 
 
