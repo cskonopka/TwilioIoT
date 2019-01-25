@@ -6,10 +6,6 @@
 
 [Containers](https://en.wikipedia.org/wiki/Intermodal_container) are one of the many ways food is shipped to vendors around the globe. The food encounters various types of environmental changes before it reaches the consumer. These environmental changes could impact the quality of the product during the shipment. 
 
-<p align="center">
-  <img width="40%" height="40%" src="https://i.ibb.co/fF0Gscn/Twiolio-Io-TNBFood01.gif"/>
-</p>
-
 Using *[Twilio’s Alfa Developer Kit](https://www.twilio.com/docs/wireless/quickstart/alfa-developer-kit)* that was distributed at [SIGNAL 2018](https://www.twilio.com/signal) we will create a full-stack IoT prototype using the [U.S. T-Mobile NB-IoT](https://www.twilio.com/docs/wireless/nb) network. The rollout of *[NB-IoT](https://www.twilio.com/wireless/narrowband)* provides a new way to create and connect devices with a lifespan of 10 years in the wild. This device will be used to track the [temperature/humidity](http://wiki.seeedstudio.com/Grove-Temperature_and_Humidity_Sensor_Pro/) of a food shipment and infrequently send small packets of data to update a web application.
 
 [![Create an NB-IoT environmental monitor for food shipments with TwilioIoT, Node and Pusher](http://img.youtube.com/vi/N4ZKnuvLjPU/0.jpg)](https://www.youtube.com/watch?v=N4ZKnuvLjPU "Create an NB-IoT environmental monitor for food shipments with TwilioIoT, Node and Pusher")
@@ -29,15 +25,15 @@ Using *[Twilio’s Alfa Developer Kit](https://www.twilio.com/docs/wireless/quic
 * [Pusher](http://pusher.com/)
 
 ## Prepare the hardware
-If you are unfamiliar with the Alfa developer kit check out how [“Pioneer NB-IoT with Twilio’s Alfa Development Kit”](https://www.twilio.com/blog/pioneer-nb-iot-with-twilios-alfa-development-kit). This is a great primer for understanding how to connect to T-Mobile’s NB-IoT network with Twilio.
+If you are unfamiliar with the Alfa developer kit check out how [“Pioneer NB-IoT with Twilio’s Alfa Development Kit”](https://www.twilio.com/blog/pioneer-nb-iot-with-twilios-alfa-development-kit). This is a great primer for understanding how to connect to T-Mobile’s NB-IoT network with Twilio. The developer board was created in collaboration with [Seeed Studio](https://www.seeedstudio.com/).
 
-First take out the required components from the Alfa developer kit. 
+First take out the required components from the developer kit. 
 
 <p align="center">
   <img width="40%" height="40%" src="https://i.ibb.co/jwvTgqL/Twilio-Timeline-Hardware.jpg"/>
 </p>
 
-Attach the [Seeed Studio](https://www.seeedstudio.com/) Temperature and Humidity [DHT11](http://wiki.seeedstudio.com/Grove-TemperatureAndHumidity_Sensor/) sensor.
+Attach the Seeed Studio Temperature and Humidity [DHT11](http://wiki.seeedstudio.com/Grove-TemperatureAndHumidity_Sensor/) sensor.
 
 <p align="center">
   <img width="40%" height="40%" src="https://i.ibb.co/pjtXV2B/Twilio-Timeline-Hardware-Setup.jpg"/>
@@ -340,31 +336,31 @@ Once the signup process is complete, Pusher will redirect to the project Dashboa
 Click Create new app to create a new Channels application. Provide a name for the app and select a cluster where the application will be hosted. Select Javascript as the front-end tech and Node.js as the back-end tech. After filling out the necessary details press Create my app.
 
 <p align="center">
-  <img width="40%" height="40%" src="https://i.ibb.co/0MWvVyF/Twilio-Io-T-Timeline-App-Details.png"/>
+  <img width="80%" height="80%" src="https://i.ibb.co/0MWvVyF/Twilio-Io-T-Timeline-App-Details.png"/>
 </p>
 
 Pusher will redirect to the Dashboard once the app is created.
 
 <p align="center">
-  <img width="40%" height="40%" src="https://i.ibb.co/FsTNYmP/Twilio-Io-T-Timeline-App-Overview.png"/>
+  <img width="80%" height="80%" src="https://i.ibb.co/FsTNYmP/Twilio-Io-T-Timeline-App-Overview.png"/>
 </p>
 
 Press the Channels Apps in the navigation bar on the left.
 
 <p align="center">
-  <img width="40%" height="40%" src="https://i.ibb.co/LxT2fx5/Twilio-Io-T-Timeline-Create-Channel.png"/>
+  <img width="10%" height="10%" src="https://i.ibb.co/LxT2fx5/Twilio-Io-T-Timeline-Create-Channel.png"/>
 </p>
 
 A new menu will appear with all of Channels apps associated with the account. Click the application we just created to go to the application’s dashboard.
 
 <p align="center">
-  <img width="40%" height="40%" src="https://i.ibb.co/nkNg16S/Twilio-Io-T-Timeline-Dashboard.png"/>
+  <img width="80%" height="80%" src="https://i.ibb.co/nkNg16S/Twilio-Io-T-Timeline-Dashboard.png"/>
 </p>
 
 Once at the Channels dashboard we need to copy the Pusher credentials. They can be found at the bottom of the page. These credentials will be used in a future step.
 
 <p align="center">
-  <img width="40%" height="40%" src="https://i.ibb.co/31zHzxS/Twilio-Io-T-Timeline-Credentials.png"/>
+  <img width="60%" height="60%" src="https://i.ibb.co/31zHzxS/Twilio-Io-T-Timeline-Credentials.png"/>
 </p>
 
 ## Create the server and listen for messages
