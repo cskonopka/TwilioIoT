@@ -1,0 +1,54 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <title>Twilio Narrowband</title>
+        <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/pure-min.css" integrity="sha384-UQiGfs9ICog+LwheBSRCt1o5cbyKIHbwjWscjemyBMT9YCUMZffs6UqUTd0hObXD" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Verdana">
+        <link rel="stylesheet" href="./style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="manifest" href="/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <!-- <meta name="msapplication-TileImage" content="/ms-icon-144x144.png"> -->
+        <meta name="theme-color" content="#ffffff">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <section>
+                <div class="m2m-commands">
+                    <div class="container">
+                        <div class="icon">
+                            <div class="row">
+                                <img style="height:35%; margin: auto;" src="./assets/twilio.png">
+                            </div>
+                        </div>
+                        <div class="centerdiv">
+                            <div class="row">
+                                <div class="commands-list" id="commands-list">
+                                    <script id="command-template" type="text/x-template">
+                                    <div class="user-icon">
+                                        <img class="imgstyle" src="./assets/check.png" />
+                                    </div>
+                                    <div class="command-info">
+                                        <div class="row">
+                                            <div class="name">{{name}}</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="text"><em>{{command}}</em></div>
+                                        </div>
+                                    </div>
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <script type="text/javascript" src="https://js.pusher.com/3.2/pusher.min.js"></script>
+        <script type="text/javascript" src="./app.js"></script>
+    </body>
+</html>
