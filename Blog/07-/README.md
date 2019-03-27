@@ -101,10 +101,6 @@ Success!
 
 It’s time to create an installation [Bash script](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) using the [command-line interface](https://en.wikipedia.org/wiki/Command-line_interface). The purpose of the program is to automate the creation of a new directory, install dependencies into the new directory and generate a .js file called sendcommand.js. When run, the .js file will send a new Command to a Twilio SIM using the Commands API.
 
-<p align="center">
-  <img width="40%" height="40%" src="https://i.ibb.co/3yPgb9b/twilioazurenode-03.gif"/>
-</p>
-
 Start by creating a new bash file using [nano](https://en.wikipedia.org/wiki/GNU_nano).
 
 ```bash
@@ -185,7 +181,7 @@ node sendcommand.js
 Navigate to the Programmable Wireless section of the Twilio Console and click the SIMs tab.
 
 <p align="center">
-  <img width="40%" height="40%" src="https://i.ibb.co/k155ZQ5/twilioazurenode-pw.png"/>
+  <img width="20%" height="20%" src="https://i.ibb.co/k155ZQ5/twilioazurenode-pw.png"/>
 </p>
 
 Find the registered SIM and click on the link.
