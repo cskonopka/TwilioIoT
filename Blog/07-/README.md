@@ -1,10 +1,8 @@
 # 07 - Sending a SIM Command from an Azure Virtual Machine with Node.js
 
 <p align="center">
-  <img width="70%" height="70%" src="https://i.ibb.co/qpk0ZMX/Twilio-Io-T-NBFood-Banner2.png"/>
+  <img width="70%" height="70%" src="https://i.ibb.co/dkzK8GR/twilioazurenode-header.png"/>
 </p>
-
-[Containers](https://en.wikipedia.org/wiki/Intermodal_container) are one of the many ways food is shipped to vendors 
 
 Building a [Virtual Machine](https://azure.microsoft.com/en-us/services/virtual-machines/) using the [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) is a skill that can bring your idea beyond the desktop and into the cloud. In this tutorial, we will walk through how to set up an Ubuntu Virtual Machine using the Azure CLI and send a Twilio SIM Command using Node.js. This post assumes that you have a basic understanding of [how to set up a Twilio SIM](https://www.twilio.com/docs/wireless/tutorials/how-to-order-and-register-your-first-sim) and use the [Commands API](https://www.twilio.com/docs/wireless/api/commands). If you are new to this concept check out the Commands API documentation and this example on [how to send machine-to-machine](https://www.twilio.com/docs/wireless/tutorials/iot-guides/how-to-send-machine-machine-commands) Commands with the Twilio SIM.
 
@@ -103,10 +101,6 @@ Success!
 
 It’s time to create an installation [Bash script](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) using the [command-line interface](https://en.wikipedia.org/wiki/Command-line_interface). The purpose of the program is to automate the creation of a new directory, install dependencies into the new directory and generate a .js file called sendcommand.js. When run, the .js file will send a new Command to a Twilio SIM using the Commands API.
 
-<p align="center">
-  <img width="40%" height="40%" src="https://i.ibb.co/3yPgb9b/twilioazurenode-03.gif"/>
-</p>
-
 Start by creating a new bash file using [nano](https://en.wikipedia.org/wiki/GNU_nano).
 
 ```bash
@@ -187,7 +181,7 @@ node sendcommand.js
 Navigate to the Programmable Wireless section of the Twilio Console and click the SIMs tab.
 
 <p align="center">
-  <img width="40%" height="40%" src="https://i.ibb.co/k155ZQ5/twilioazurenode-pw.png"/>
+  <img width="20%" height="20%" src="https://i.ibb.co/k155ZQ5/twilioazurenode-pw.png"/>
 </p>
 
 Find the registered SIM and click on the link.
