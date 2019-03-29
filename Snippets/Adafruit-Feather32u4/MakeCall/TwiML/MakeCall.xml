@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+    <Dial callerId="YOUR_TWILIO_NUMBER">
+		<Number url="CALL_MSG_TWIML_URL">{{To}}</Number>
+  	</Dial>
+</Response>
