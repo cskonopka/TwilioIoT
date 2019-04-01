@@ -1,14 +1,23 @@
 /*
-    Twilio Machine to Machine Commands Quickstart on Adafruit Feather 32u4 FONA
+    Twilio Machine to Machine Commands Quickstart on Adafruit 3G Fona
+
+    ~ WIRING ~
+
+    3G FONA ----- Arduino UNO
+    5V ---------- 5v
+    GND --------- GND
+    KEY --------- GND
+    RST --------- 4
+    TX ---------- 3
+    RX ---------- 2
 */
 
 #include "Adafruit_FONA.h"
 #include <SoftwareSerial.h>
 
-#define FONA_RX  9
-#define FONA_TX  8
+#define FONA_RX 2
+#define FONA_TX 3
 #define FONA_RST 4
-#define FONA_RI  7
 
 /*
     Software Serial definitions:
@@ -19,7 +28,7 @@
 SoftwareSerial fonaSS = SoftwareSerial(FONA_TX, FONA_RX);
 SoftwareSerial *fonaSerial = &fonaSS;
 
-Adafruit_FONA fona = Adafruit_FONA(FONA_RST);
+Adafruit_FONA_3G fona = Adafruit_FONA_3G(FONA_RST);
 
 char replybuffer[255];
 
@@ -41,7 +50,7 @@ void setup() {
   fonaSerial->print("AT+CNMI=2,1\r\n");
 
   Serial.println("Sending Command!");
- 
+
   /*
      Send an SMS to short code 2936, which is a Twilio
      Machine to machine command.
@@ -52,7 +61,7 @@ void setup() {
       Keep `command` under 160 ASCII characters, or 67 UCS-2 characters.
       https://www.twilio.com/docs/glossary/what-sms-character-limit
   */
-  char command[141] = "hello from feather32u4";
+  char command[141] = "hello from the 3G Fona";
 
   /*
       Write a Twilio M2M command.
@@ -78,7 +87,7 @@ void loop() {
   } else {
 
     /* Print the command */
-    Serial.println(replybuffer);
+    SerialUSB.println(replybuffer);
     delay(2000);
 
     /* Delete the stored command */
@@ -86,6 +95,11 @@ void loop() {
 
     /* That's all, folks! */
     Serial.println("Finished.");
+    if (!fona.sendSMS("2936", "signing off")) {
+      Serial.println(F("Failed"));
+    } else {
+      Serial.println(F("Sent!"));
+    }
     while (1) {
       delay(5000);
     }
